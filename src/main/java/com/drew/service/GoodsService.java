@@ -21,14 +21,15 @@ public class GoodsService {
     }
 
     public boolean isGoodsExist(String goodsID){
-        if(goodsDao.findGoodsByID(goodsID)!=null)
+        if(goodsDao.findGoodsByID(goodsID)!=null) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
     public boolean addGoods(Goods goods){
-        return goodsDao.addGoods(goods.getGoodsID(),goods.getGoodName(),goods.getDescription(),goods.getCategory(),goods.getPrice(),goods.getStock(),goods.getImage());
+        return goodsDao.addGoods(goods.getGoodsID(),goods.getGoodsName(),goods.getDescription(),goods.getCategory(),goods.getPrice(),goods.getStock(),goods.getImage());
     }
 
     public boolean deleteGoodsByID(String goodsID){
@@ -36,6 +37,6 @@ public class GoodsService {
     }
 
     public boolean editGoods(Goods goods){
-        return goodsDao.updateGoodsByID(goods.getGoodsID(),goods.getGoodName(),goods.getDescription(),goods.getCategory(),goods.getPrice(),goods.getStock(),goods.getImage());
+        return goodsDao.updateGoodsByID(goods.getGoodsID(),goods.getGoodsName(),goods.getDescription(),goods.getCategory(),goods.getPrice(),goods.getStock(),goods.getImage());
     }
 }

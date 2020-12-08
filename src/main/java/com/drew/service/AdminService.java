@@ -21,10 +21,12 @@ public class AdminService {
     }
 
     public boolean isAdminExist(String adminID){
-        if(adminDao.findAdminByID(adminID)!=null)
+        if(adminDao.findAdminByID(adminID)!=null) {
             return true;
-        else
+        }
+        else {
             return false;
+        }
     }
 
     public boolean addAdmin(Admin admin){

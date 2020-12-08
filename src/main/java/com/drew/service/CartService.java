@@ -12,30 +12,31 @@ public class CartService {
     @Resource
     private CartDao cartDao;
 
-    public List<Cart> findAllCart(){
-        return cartDao.findAllCart();
+    public List<Cart> findAllCart(String cusID){
+        return cartDao.findAllCart(cusID);
     }
 
-    public Cart findCartByID(String goodsID){
-        return cartDao.findCartByID(goodsID);
+    public Cart findCartByID(String cusID,String goodsID){
+        return cartDao.findCartByID(cusID, goodsID);
     }
 
-    public boolean isCartExist(String goodsID){
-        if(cartDao.findCartByID(goodsID)!=null)
+    public boolean isCartExist(String cusID,String goodsID){
+        if(cartDao.findCartByID(cusID,goodsID)!=null) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
     public boolean addCart(Cart cart){
         return cartDao.addCart(cart.getGoodsID(),cart.getAmount());
     }
 
-    public boolean deleteCartByID(String goodsID){
-        return cartDao.deleteCartByID(goodsID);
+    public boolean deleteCartByID(Cart cart){
+        return cartDao.deleteCartByID(cart.getcusID(),cart.getGoodsID());
     }
 
-    public boolean editCartByID(Cart cart){
+    public boolean updateCartByID(Cart cart){
         return cartDao.updateCartByID(cart.getGoodsID(),cart.getAmount());
     }
 }
