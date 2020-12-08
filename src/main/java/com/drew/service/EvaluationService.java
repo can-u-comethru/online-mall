@@ -21,10 +21,11 @@ public class EvaluationService {
     }
 
     public boolean isEvaluationExist(String evaluationID){
-        if(evaluationDao.findEvaluationByID(evaluationID)!=null)
+        if(evaluationDao.findEvaluationByID(evaluationID)!=null) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
     public boolean addEvaluation(Evaluation evaluation){
