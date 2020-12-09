@@ -53,4 +53,5 @@ public class Admin {
     public void setAdminTel(String adminTel) {
         this.adminTel = adminTel;
     }
+    private String supervisor;
 }
