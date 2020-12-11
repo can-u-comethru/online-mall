@@ -21,10 +21,7 @@ public class OrderFormService {
     }
 
     public boolean isOrderFormExist(String orderFormID){
-        if(orderFormDao.findOrderFormByID(orderFormID)!=null)
-            return true;
-        else
-            return false;
+        return orderFormDao.findOrderFormByID(orderFormID) != null;
     }
 
     public boolean addOrderForm(OrderForm orderForm){

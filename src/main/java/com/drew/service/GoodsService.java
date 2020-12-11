@@ -31,12 +31,15 @@ public class GoodsService {
     public boolean addGoods(Goods goods){
         return goodsDao.addGoods(goods.getGoodsID(),goods.getGoodsName(),goods.getDescription(),goods.getCategory(),goods.getPrice(),goods.getStock(),goods.getImage());
     }
+    public boolean updateGoodsByID(Goods goods){
+        return goodsDao.updateGoodsByID(goods.getGoodsID(),goods.getGoodsName(),goods.getDescription(),goods.getCategory(),goods.getPrice(),goods.getStock(),goods.getImage());
+    }
 
     public boolean deleteGoodsByID(String goodsID){
         return goodsDao.deleteGoodsByID(goodsID);
     }
 
-    public boolean editGoods(Goods goods){
+    public boolean editGoodsByID(Goods goods){
         return goodsDao.updateGoodsByID(goods.getGoodsID(),goods.getGoodsName(),goods.getDescription(),goods.getCategory(),goods.getPrice(),goods.getStock(),goods.getImage());
     }
 }
