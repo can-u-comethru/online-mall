@@ -1,4 +1,4 @@
-package com.drew.controller;
+package com.drew.controller.admin;
 
 import com.drew.pojo.Admin;
 import com.drew.service.AdminService;

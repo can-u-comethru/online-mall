@@ -36,7 +36,7 @@ public class GoodsService {
         return goodsDao.deleteGoodsByID(goodsID);
     }
 
-    public boolean editGoods(Goods goods){
+    public boolean editGoodsByID(Goods goods){
         return goodsDao.updateGoodsByID(goods.getGoodsID(),goods.getGoodsName(),goods.getDescription(),goods.getCategory(),goods.getPrice(),goods.getStock(),goods.getImage());
     }
 }

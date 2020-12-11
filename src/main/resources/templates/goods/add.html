@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -48,10 +49,36 @@
 		<div class="container-fluid">
 			<div class="row">
 
-				<div th:replace="~{commons/common::sidebar(active='list.html')}"></div>
+				<div th:replace="~{commons/common::sidebar}"></div>
 
 				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-					<h1>404</h1>
+					<form th:action="@{/goods/add}">
+						<div class="form-group">
+							<label for="goodsID">商品编号</label>
+							<input type="text" class="form-control" id="goodsID" name="goodsID">
+						</div>
+						<div class="form-group">
+							<label for="goodsName">商品名</label>
+							<input type="text" class="form-control" id="goodsName" name="goodsName">
+						</div>
+						<div class="form-group">
+							<label for="description">描述</label>
+							<input type="text" class="form-control" id="description" name="description">
+						</div>
+						<div class="form-group">
+							<label for="price">价格</label>
+							<input type="text" class="form-control" id="price" name="price">
+						</div>
+						<div class="form-group">
+							<label for="stock">库存</label>
+							<input type="text" class="form-control" id="stock" name="stock">
+						</div>
+						<div class="form-group">
+							<label for="image">url</label>
+							<input type="url" class="form-control" id="image" name="image">
+						</div>
+						<button type="submit" class="btn btn-primary">确认添加</button>
+					</form>
 				</main>
 			</div>
 		</div>
@@ -59,18 +86,18 @@
 		<!-- Bootstrap core JavaScript
     ================================================== -->
 		<!-- Placed at the end of the document so the pages load faster -->
-		<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js" ></script>
-		<script type="text/javascript" src="asserts/js/popper.min.js" ></script>
-		<script type="text/javascript" src="asserts/js/bootstrap.min.js" ></script>
+		<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js"></script>
+		<script type="text/javascript" src="asserts/js/popper.min.js"></script>
+		<script type="text/javascript" src="asserts/js/bootstrap.min.js"></script>
 
 		<!-- Icons -->
-		<script type="text/javascript" src="asserts/js/feather.min.js" ></script>
+		<script type="text/javascript" src="asserts/js/feather.min.js"></script>
 		<script>
 			feather.replace()
 		</script>
 
 		<!-- Graphs -->
-		<script type="text/javascript" src="asserts/js/Chart.min.js" ></script>
+		<script type="text/javascript" src="asserts/js/Chart.min.js"></script>
 		<script>
 			var ctx = document.getElementById("myChart");
 			var myChart = new Chart(ctx, {
