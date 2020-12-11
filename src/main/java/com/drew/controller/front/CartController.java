@@ -35,7 +35,7 @@ public class CartController {
     @ResponseBody
     public Map<String, Object> addCart(String cusID, String goodsID, int amount) {
         System.out.println("数量为：" + amount);
-        Cart cart = cartService.findCartByID(cusID, goodsID);
+        Cart cart = cartService.findCartByID(cusID);
         if (cart == null) {
             Cart cart1 = new Cart();
             cart1.getcusID();
@@ -55,18 +55,18 @@ public class CartController {
 
     @RequestMapping(value = "/findCart", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> findCartByID(String cusID, String goodsID) {
-       Cart cart = cartService.findCartByID(cusID, goodsID);
-        Map<String, Object> resultMap = new HashMap<String, Object>();
+    public Map<String, Object> findCartByID(String cusID) {
+       Cart cart = cartService.findCartByID(cusID);
+        Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("result", cart);
         return resultMap;
     }
 
     @RequestMapping(value = "/deleteCartByID", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> deleteCartByID(String cusID, String goodsID) {
-        cartService.deleteCartByID(cartService.findCartByID(cusID, goodsID));
-        Map<String, Object> resultMap = new HashMap<String, Object>();
+    public Map<String, Object> deleteCartByID(String cusID) {
+        cartService.deleteCartByID(cartService.findCartByID(cusID));
+        Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("result", "success");
         System.out.println("我返回了");
         return resultMap;

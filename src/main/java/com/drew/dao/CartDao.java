@@ -10,8 +10,8 @@ public interface CartDao {
     @Select("select * from cart where cusID=#{csuID}")
     List<Cart> findAllCart(String cusID);
 
-    @Select("select * from cart where goodsID=#{goodsID}and cusID=#{csuID}")
-    Cart findCartByID(@Param("cusID") String cusID,@Param("goodsID") String goodsID);
+    @Select("select * from cart where cusID=#{csuID}")
+    Cart findCartByID(@Param("cusID") String cusID);
 
     @Insert("insert into cart(goodsID,amount) values(#{goodsID},#{amount})")
     boolean addCart(@Param("goodsID") String goodsID,@Param("amount") int amount);
