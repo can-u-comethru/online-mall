@@ -16,12 +16,12 @@ public class CartService {
         return cartDao.findAllCart(cusID);
     }
 
-    public Cart findCartByID(String cusID,String goodsID){
-        return cartDao.findCartByID(cusID, goodsID);
+    public Cart findCartByID(String cusID){
+        return cartDao.findCartByID(cusID);
     }
 
-    public boolean isCartExist(String cusID,String goodsID){
-        if(cartDao.findCartByID(cusID,goodsID)!=null) {
+    public boolean isCartExist(String cusID){
+        if(cartDao.findCartByID(cusID)!=null) {
             return true;
         } else {
             return false;

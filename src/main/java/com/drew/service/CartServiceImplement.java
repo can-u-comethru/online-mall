@@ -12,8 +12,8 @@ public class CartServiceImplement extends CartService {
     private CartDao cartDao;
 
     @Override
-    public Cart findCartByID(String cusID,String goodsID) {
-        return super.findCartByID(cusID,goodsID);
+    public Cart findCartByID(String cusID) {
+        return super.findCartByID(cusID);
     }
 
     @Override
