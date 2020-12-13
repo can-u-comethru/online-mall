@@ -27,8 +27,25 @@ public class CartController {
     private CartService cartService;
 
     @RequestMapping(value = "/Cart")
-    public String Cart() {
+    public String findAllCart() {
         return "Cart";
+    }
+
+    @RequestMapping(value = "/findCart", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> findCartByID(String cusID) {
+        if(cartService.isCartExist(cusID)==true) {
+            Cart cart = cartService.findCartByID(cusID);
+            Map<String, Object> resultMap = new HashMap<>();
+            resultMap.put("result", cart);
+            return resultMap;
+        }
+        else{
+            String result="您还没有创建购物车，请去挑选您喜欢商品添加进来吧。";
+            Map<String, Object> resultMap = new HashMap<>();
+            resultMap.put("result", result);
+            return resultMap;
+        }
     }
 
     @RequestMapping(value = "/addCart", method = RequestMethod.POST)
@@ -53,15 +70,6 @@ public class CartController {
         return resultMap;
     }
 
-    @RequestMapping(value = "/findCart", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> findCartByID(String cusID) {
-       Cart cart = cartService.findCartByID(cusID);
-        Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("result", cart);
-        return resultMap;
-    }
-
     @RequestMapping(value = "/deleteCartByID", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> deleteCartByID(String cusID) {
@@ -71,5 +79,14 @@ public class CartController {
         System.out.println("我返回了");
         return resultMap;
 
+    }
+    @RequestMapping(value = "/updateCartByID",method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String,Object> updateCartByID(String cusID){
+        cartService.updateCartByID(cartService.findCartByID(cusID));
+        Map<String,Object> resultMap=new HashMap<>();
+        resultMap.put("result","success");
+        System.out.println("购物车已更新！");
+        return resultMap;
     }
 }

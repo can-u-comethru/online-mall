@@ -11,7 +11,7 @@ import javax.websocket.server.PathParam;
 import java.util.List;
 
 @Controller
-public class GoodsController {
+public class  GoodsController {
     @Resource
     GoodsService goodsService;
 
