@@ -36,7 +36,7 @@ public class EvaluationService {
         return evaluationDao.deleteEvaluationByID(evaluationID);
     }
 
-    public boolean editEvaluationByID(Evaluation evaluation){
+    public boolean updateEvaluationByID(Evaluation evaluation){
         return evaluationDao.updateEvaluationByID(evaluation.getEvaluationID(),evaluation.getCommentary());
     }
 }

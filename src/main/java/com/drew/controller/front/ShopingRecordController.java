@@ -101,12 +101,10 @@ public class ShopingRecordController {
     @RequestMapping(value = "/getAllShoppingRecords",method = RequestMethod.POST)
     @ResponseBody
     public Map<String,Object> getAllShoppingRecords(){
-//        System.out.println("wo在这里i");
         List<ShoppingRecord> shoppingRecordList = shoppingRecordService.getAllShoppingRecords();
         String shoppingRecords = JSONArray.toJSONString(shoppingRecordList);
         Map<String,Object> resultMap = new HashMap<String,Object>();
         resultMap.put("result",shoppingRecords);
-//        System.out.println("我反悔了"+shoppingRecords);
         return resultMap;
     }
 

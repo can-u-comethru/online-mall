@@ -51,23 +51,23 @@ public class CartController {
     @RequestMapping(value = "/addCart", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> addCart(String cusID, String goodsID, int amount) {
-        System.out.println("数量为：" + amount);
-        Cart cart = cartService.findCartByID(cusID);
-        if (cart == null) {
-            Cart cart1 = new Cart();
-            cart1.getcusID();
-            cart1.getGoodsID();
-            cart1.getAmount();
-            cart1.setPrice(goodsService.findGoodsByID(goodsID).getPrice() * amount);
-            cartService.addCart(cart1);
-        } else {
-            cart.setAmount(cart.getAmount() + amount);
-            cart.setPrice(goodsService.findGoodsByID(goodsID).getPrice() * cart.getAmount());
-        }
-        Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("result", "success");
-        System.out.println("返回");
-        return resultMap;
+            System.out.println("数量为：" + amount);
+            Cart cart = cartService.findCartByID(cusID);
+            if (cart == null) {
+                Cart cart1 = new Cart();
+                cart1.getcusID();
+                cart1.getGoodsID();
+                cart1.getAmount();
+                cart1.setPrice(goodsService.findGoodsByID(goodsID).getPrice() * amount);
+                cartService.addCart(cart1);
+            } else {
+                cart.setAmount(cart.getAmount() + amount);
+                cart.setPrice(goodsService.findGoodsByID(goodsID).getPrice() * cart.getAmount());
+            }
+            Map<String, Object> resultMap = new HashMap<>();
+            resultMap.put("result", "success");
+            System.out.println("返回");
+            return resultMap;
     }
 
     @RequestMapping(value = "/deleteCartByID", method = RequestMethod.POST)
@@ -80,6 +80,7 @@ public class CartController {
         return resultMap;
 
     }
+
     @RequestMapping(value = "/updateCartByID",method = RequestMethod.POST)
     @ResponseBody
     public Map<String,Object> updateCartByID(String cusID){
