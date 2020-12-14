@@ -29,7 +29,7 @@ public class EvaluationService {
     }
 
     public boolean addEvaluation(Evaluation evaluation){
-        return evaluationDao.addEvaluation(evaluation.getEvaluationID(),evaluation.getCusID(),evaluation.getGoodsID(),evaluation.getCommentary());
+        return evaluationDao.addEvaluation(evaluation.getEvaluationID(),evaluation.getCusID(),evaluation.getGoodsID(),evaluation.getCommentary(),evaluation.getEvaluationDate());
     }
 
     public boolean deleteEvaluationByID(String evaluationID){
@@ -37,6 +37,6 @@ public class EvaluationService {
     }
 
     public boolean editEvaluationByID(Evaluation evaluation){
-        return evaluationDao.updateEvaluationByID(evaluation.getEvaluationID(),evaluation.getCommentary());
+        return evaluationDao.updateEvaluationByID(evaluation.getEvaluationID(),evaluation.getCommentary(),evaluation.getEvaluationDate());
     }
 }

@@ -42,4 +42,8 @@ public class GoodsService {
     public boolean editGoodsByID(Goods goods){
         return goodsDao.updateGoodsByID(goods.getGoodsID(),goods.getGoodsName(),goods.getDescription(),goods.getCategory(),goods.getPrice(),goods.getStock(),goods.getImage());
     }
+
+    public String getGoodsNameByID(String goodsID){
+        return goodsDao.getGoodsNameByID(goodsID);
+    }
 }
