@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -12,6 +14,7 @@ public class Evaluation {
     private String cusID;
     private String goodsID;
     private String commentary;
+    private Date evaluationDate;
 
     public String getEvaluationID() {
         return evaluationID;

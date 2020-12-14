@@ -12,6 +12,7 @@ public class OrderForm {
     private String cusID;
     private float sum;
     private String status;
+    private String time;
 
     public String getOrderFormID() {
         return orderFormID;
@@ -43,5 +44,13 @@ public class OrderForm {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }

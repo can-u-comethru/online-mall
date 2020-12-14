@@ -25,7 +25,7 @@ public class LoginController {
             if(admin.getAdminID().equals(adminID)&&admin.getAdminPwd().equals(adminPwd)){
                 session.setAttribute("adminNow_N",admin.getAdminName());
                 session.setAttribute("adminNow_ID",admin.getAdminID());
-                return "redirect:/main.html";
+                return "redirect:/homepage.html";
             }
         }
         model.addAttribute("msg","管理员ID或者密码有误！");

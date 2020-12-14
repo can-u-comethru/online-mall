@@ -21,10 +21,7 @@ public class CustomerService {
     }
 
     public boolean isCustomerExist(String cusID) {
-        if (customerDao.findCustomerByID(cusID) != null)
-            return true;
-        else
-            return false;
+        return customerDao.findCustomerByID(cusID) != null;
     }
 
     public boolean addCustomer(Customer customer){
@@ -37,5 +34,9 @@ public class CustomerService {
 
     public boolean editCustomerByID(Customer customer){
         return customerDao.updateCustomerByID(customer.getCusID(),customer.getCusName(),customer.getCusPwd(),customer.getCusTel(),customer.getCusEmail(),customer.getCusAddress());
+    }
+
+    public String getCusNameByID(String cusID){
+        return customerDao.getCusNameByID(cusID);
     }
 }
