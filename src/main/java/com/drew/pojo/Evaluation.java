@@ -12,6 +12,7 @@ public class Evaluation {
     private String cusID;
     private String goodsID;
     private String commentary;
+    private String time;
 
     public String getEvaluationID() {
         return evaluationID;
@@ -43,5 +44,13 @@ public class Evaluation {
 
     public void setCommentary(String commentary) {
         this.commentary = commentary;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }
