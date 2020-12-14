@@ -35,4 +35,8 @@ public class CustomerService {
     public boolean editCustomerByID(Customer customer){
         return customerDao.updateCustomerByID(customer.getCusID(),customer.getCusName(),customer.getCusPwd(),customer.getCusTel(),customer.getCusEmail(),customer.getCusAddress());
     }
+
+    public String getCusNameByID(String cusID){
+        return customerDao.getCusNameByID(cusID);
+    }
 }

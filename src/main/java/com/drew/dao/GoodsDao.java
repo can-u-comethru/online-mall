@@ -21,4 +21,7 @@ public interface GoodsDao {
 
     @Delete("delete from goods where goodsID=#{goodsID}")
     boolean deleteGoodsByID(@Param("goodsID") String goodsID);
+
+    @Select("select goodsName from goods where goodsID=#{goodsID}")
+    String getGoodsNameByID(@Param("goodsID") String goodsID);
 }

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>购物车</title>
+</head>
+
+<body>
+    <div id="header" th:replace="commons/header::public_header"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="cartTitle">
+                    <h2>购物车</h2>
+                </div>
+                <form id="cartForm" action="/buy" method="GET">
+                    <input type="hidden" th:value="${session.goods}">
+                    <div>
+                        <table id="cartTable">
+                            <tr class="goodTitle">
+                                <th>
+                                    <div class="goodPictureTh">商品预览</div>
+                                </th>
+                                <th>
+                                    <div class="goodNameTh">商品名称</div>
+                                </th>
+                                <th>
+                                    <div class="goodDescriptionTh">商品描述</div>
+                                </th>
+                                <th>
+                                    <div class="goodCategoryTh">商品类别</div>
+                                </th>
+                                <th>
+                                    <div class="goodPriceTh">商品单价</div>
+                                </th>
+                                <th>
+                                    <div class="goodAmountTh">商品数量</div>
+                                </th>
+                                <th>
+                                    <div class="goodOperationTh">操作</div>
+                                </th>
+                            </tr>
+                            <tr class="goodBody" th:each="good:${session.goods}">
+                                <div th:if="${good!=NULL}">
+                                    <td>
+                                        <div class="goodPicture">
+                                            <a href="/goods/id1"
+                                                th:href="@{/goods/}+${good.goodsID}">
+                                                <img src="../static/img/test.jpg" th:src="@{~/img/}+${good.goodsID}+'.jpg'"
+                                                    alt="图片">
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="goodName" th:text=${good.goodsName}>
+                                            商品名称七个字
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="goodDescription" th:text="${good.description}">
+                                            商品描述七个字
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="goodCategory" th:text="${good.category}">
+                                            商品类别七个字
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="goodPrice">
+                                            <span class="price" th:text="${good.price}">10000.99</span>元
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="goodAmount">
+                                            <button class="changeAmount" type='button' onclick="decrease(this),sum()"
+                                                th:onclick="'decrease(this),sum()'">-</button>
+                                            <input id="goodAmount" class="amount" type="text" value="1"
+                                                th:name="${good.goodsID}" name="id1" readonly>
+                                            <button class="changeAmount" type='button' onclick="increase(this),sum()"
+                                                th:onclick="'increase(this),sum()'">+</button>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="goodOperation">
+                                            <input onclick="sum()" th:onclick="'sum()'" type="checkbox" name="buy"
+                                                th:value="${good.goodsID}" value="id1">
+                                            <button class="del" type='button' onclick="del(this),sum()"
+                                                th:onclick="'del(this),sum()'">删除</button>
+                                        </div>
+                                    </td>
+                                </div>
+                            </tr>
+                            <tr class="goodBody" th:each="good:${goods}">
+                                <div th:if="${good==NULL}">
+                                    <td class="noGood" colspan="7">购物车内没有商品</td>
+                                </div>
+                            </tr>
+                            <tr>
+                                <div th:if="${good!=NULL}">
+                                    <td class="operation" colspan="2">
+                                        <button class="select" type='button' onclick="allSelect(),sum()"
+                                            th:onclick="'allSelect(),sum()'">全选</button>
+                                        <button class="select" type='button' onclick="allNotSelect(),sum()"
+                                            th:onclick="'allNotSelect(),sum()'">全不选</button>
+                                        <button class="select" type='button' onclick="delSelect(),sum()"
+                                            th:onclick="'delSelect(),sum()'">删除所选</button>
+                                    </td>
+                                    <td class="location" colspan="3">
+                                        配送至:<input id="location" type="text" name="location" placeholder="请输入收货地址" required>
+                                    </td>
+                                    <td class="sumPrice" colspan="2">
+                                        总价<span id="allPrice">0</span>元
+                                        <button class="buy" type="button" onclick="check()">结账</button>
+                                        <input type="submit" id="buy" value="结账"> 
+                                    </td>
+                                </div>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="footer" th:replace="commons/footer::public_footer"></div>
+    <link href="../static/css/cart.css" th:href="@{~/css/cart.css}" rel="stylesheet" type="text/css" />
+    <link href="../static/css/bootstrap.min.css" th:href="@{~/css/bootstrap.min.css}" rel="stylesheet"
+        type="text/css" />
+    <script type="text/javascript" src="../static/js/cart.js" th:src="@{~/js/cart.js}"></script>
+</body>
+
+</html>

@@ -21,4 +21,7 @@ public interface CustomerDao {
 
     @Delete("delete from customer where cusID=#{cusID}")
     boolean deleteCustomerByID(@Param("cusID") String cusID);
+
+    @Select("select cusName from customer where cusID=#{cusID}")
+    String getCusNameByID(@Param("cusID") String cusID);
 }

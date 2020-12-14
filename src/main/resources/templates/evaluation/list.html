@@ -88,32 +88,28 @@
 <div class="container-fluid">
 	<div class="row">
 
-		<div th:replace="~{commons/common::sidebar(active='customer')}"></div>
+		<div th:replace="~{commons/common::sidebar(active='evaluation')}"></div>
 
 		<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-			<h2>会员列表</h2>
+			<h2>收到的评价</h2>
 			<div class="table-responsive">
 				<table class="table table-striped table-sm">
 					<thead>
 					<tr>
-						<th>会员ID</th>
-						<th>用户名</th>
-						<th>邮箱</th>
-						<th>电话</th>
-						<th>收货地址</th>
-						<th>操作</th>
+						<th>评价号</th>
+						<th>客户名</th>
+						<th>商品名</th>
+						<th>评价内容</th>
+						<th>时间</th>
 					</tr>
 					</thead>
-					<tbody id="page">
-					<tr th:each="customer:${customers}">
-						<td th:text="${customer.getCusID()}"></td>
-						<td th:text="${customer.getCusName()}"></td>
-						<td th:text="${customer.getCusEmail()}"></td>
-						<td th:text="${customer.getCusTel()}"></td>
-						<td th:text="${customer.getCusAddress()}"></td>
-						<td>
-							<a class="btn btn-sm btn-danger" th:href="@{/customer/delete(cusID=${customer.getCusID()})}">拉黑</a>
-						</td>
+					<tbody id="adminTbody">
+					<tr th:each="evaluation:${evaluations}">
+						<td th:text="${evaluation.getEvaluationID()}"></td>
+						<td th:text="${evaluation.getCusID()}"></td>
+						<td th:text="${evaluation.getGoodsID()}"></td>
+						<td th:text="${evaluation.getCommentary()}"></td>
+						<td th:text="${evaluation.getEvaluationDate()}"></td>
 					</tr>
 					</tbody>
 				</table>
@@ -159,7 +155,7 @@
 	var currentPage_=1;//当前页全局变量，用于跳转时判断是否在相同页，在就不跳，否则跳转。
 	var totalPage;//总页数
 	function goPage(pno,psize){
-		var itable = document.getElementById("page");
+		var itable = document.getElementById("adminTbody");
 		var num = itable.rows.length;//表格所有行数(所有记录数)
 
 		pageSize = psize;//每页显示行数
@@ -189,7 +185,7 @@
 		{
 			$("#adminTbody tr").eq(i).show();
 		}
-		var tempStr = "共"+num+"位客户 分"+totalPage+"页 当前第"+currentPage+"页";
+		var tempStr = "共"+num+"条评价 分"+totalPage+"页 当前第"+currentPage+"页";
 		document.getElementById("barcon1").innerHTML = tempStr;
 
 		if(currentPage>1){
