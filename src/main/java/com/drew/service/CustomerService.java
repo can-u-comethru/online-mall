@@ -21,10 +21,7 @@ public class CustomerService {
     }
 
     public boolean isCustomerExist(String cusID) {
-        if (customerDao.findCustomerByID(cusID) != null)
-            return true;
-        else
-            return false;
+        return customerDao.findCustomerByID(cusID) != null;
     }
 
     public boolean addCustomer(Customer customer){
