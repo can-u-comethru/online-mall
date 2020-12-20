@@ -66,6 +66,7 @@
                     <td class="Operation">
                         <div>
                             <button class="addToCart" type="button">加入购物车</button>&nbsp;
+                            <button class="buy" type="button">立即购买</button>&nbsp;
                         </div>
                     </td>
                 </tr>
@@ -88,12 +89,6 @@
             <div>
                 <div th:each="evaluate:${evaluation}">
                     <div th:if="${evaluate.goodsID==good.goodsID and evaluate!=NULL}">
-                        <div class="evaluator" th:text=${evaluate.cusID}>用户名字七个字</div>
-                        <div class="evaluation" th:text=${evaluate.commentary}>商品评价七个字</div>
-                    </div>
-                </div>
-                <div>
-                    <div th:if="${newEvaluation!=NULL}">
                         <div class="evaluator" th:text=${evaluate.cusID}>用户名字七个字</div>
                         <div class="evaluation" th:text=${evaluate.commentary}>商品评价七个字</div>
                     </div>
