@@ -1,0 +1,117 @@
+.container{
+    position: relative;
+}
+.goodName{
+    width: 600px;
+    height: 20px;
+    text-align: left;
+    font-size: 20px;
+}
+.seller{
+    width: 600px;
+    height: 20px;
+    text-align: left;
+    font-size: 20px;
+}
+.goodPicture{
+    width: 450px;
+    height: 600px;
+    background-color: white;
+    text-align: center;
+}
+.goodPrice{
+    height: 20px;
+    width: 600px;
+    text-align: left;
+    font-size: 20px;
+}
+.goodStock{
+    height: 20px;
+    width: 600px;
+    text-align: left;
+    font-size: 20px;
+}
+.price{
+    color: red;
+    font-weight: bolder;
+}
+img{
+    width: 400px;
+    height: 600px;
+}
+.goodCategory{
+    width: 600px;
+    height: 20px;
+    text-align: left;
+    font-size: 20px;
+}
+.goodDescription{
+    width: 600px;
+    height: 100px;
+    text-align: left;
+    font-size: 20px;
+}
+.goodDetail{
+    background-color: rgb(218, 213, 213);
+}
+.Operation{
+    text-align: right;
+    height: 60px;
+}
+.addToCart{
+    height: 50px;
+    font-size: 20px;
+    background-color: red;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+.title{
+    background-color: antiquewhite;
+    width: 1057px;
+    height: 40px;
+}
+.link{
+    text-align: center;
+    font-weight: bolder;
+    color: black;
+    background-color: lightgreen;
+}
+.evaluation{
+    background-color: white;
+    width: 1057px;
+    font-size: 18px;
+}
+.evaluator{
+    background-color: gray;
+    width: 1057px;
+    font-size: 20px;
+    font-weight: bolder;
+}
+.write{
+    width: 1057px;
+    height: 150px;
+}
+.publish{
+    height: 25px;
+    font-size: 15px;
+    background-color: rgb(0, 150, 250);
+    border: none;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+.publishArea{
+    text-align: right;
+    width: 1057px;
+}
+.noEvaluation{
+    background-color: white;
+    width: 1057px;
+    font-size: 25px;
+    text-align: center;
+    font-weight: bolder;
+}
