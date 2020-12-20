@@ -58,7 +58,7 @@ img{
     text-align: right;
     height: 60px;
 }
-.addToCart{
+.addToCart,.buy{
     height: 50px;
     font-size: 20px;
     background-color: red;
