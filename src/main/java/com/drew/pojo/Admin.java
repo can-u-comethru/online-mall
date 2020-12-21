@@ -13,4 +13,5 @@ public class Admin {
     private String adminPwd;
     private String adminEmail;
     private String adminTel;
+    private String supervisor;
 }

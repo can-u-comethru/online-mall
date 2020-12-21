@@ -88,7 +88,7 @@ public class ShopingRecordController {
         return resultMap;
     }
 
-    @RequestMapping(value = "/getShoppingRecordsByOrderStatus",method = RequestMethod.POST)
+    @RequestMapping(value = "/getShoppingRecordsByOrderStatus")
     @ResponseBody
     public Map<String,Object> getShoppingRecordsByOrderStatus(String status){
         List<ShoppingRecord> shoppingRecordList = shoppingRecordService.getShoppingRecordsByOrderStatus(status);
@@ -98,7 +98,7 @@ public class ShopingRecordController {
         return resultMap;
     }
 
-    @RequestMapping(value = "/getAllShoppingRecords",method = RequestMethod.POST)
+    @RequestMapping(value = "/getAllShoppingRecords")
     @ResponseBody
     public Map<String,Object> getAllShoppingRecords(){
         List<ShoppingRecord> shoppingRecordList = shoppingRecordService.getAllShoppingRecords();
@@ -108,7 +108,7 @@ public class ShopingRecordController {
         return resultMap;
     }
 
-    @RequestMapping(value = "/getUserProductRecord",method = RequestMethod.POST)
+    @RequestMapping(value = "/getUserProductRecord")
     @ResponseBody
     public Map<String,Object> getUserProductRecord(String cusID,String goodsID){
         String result = "false";

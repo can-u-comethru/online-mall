@@ -17,14 +17,17 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-public class EvaluationController {
+public class CustomerEvaluationController {
     @Resource
     private EvaluationService evaluationService;
 
     @Resource
     private ShoppingRecordService shoppingRecordService;
 
-    @RequestMapping(value = "/addEvaluation",method = RequestMethod.POST)
+    @RequestMapping(value = "/evaluation")
+    public String findAllEvaluation(){return "evaluation";}
+
+    @RequestMapping(value = "/addEvaluation")
     @ResponseBody
     public Map<String,Object> addEvaluation(String evaluationID,String cusID, String goodsID, String commentary){
         System.out.println("我添加了"+cusID+" "+goodsID);
@@ -35,8 +38,7 @@ public class EvaluationController {
             evaluation.setCusID(cusID);
             evaluation.setGoodsID(goodsID);
             Date date = new Date();
-            SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
-            evaluation.setTime(sf.format(date));
+            evaluation.setEvaluationDate(date);
             evaluation.setCommentary(commentary);
             evaluationService.addEvaluation(evaluation);
             result = "success";
@@ -50,7 +52,7 @@ public class EvaluationController {
         return resultMap;
     }
 
-    @RequestMapping(value = "/findEvaluationByID",method = RequestMethod.POST)
+    @RequestMapping(value = "/findEvaluationByID")
     @ResponseBody
     public Map<String,Object> findEvaluationByID(String goodsID){
         List<Evaluation> evaluationList = (List<Evaluation>) evaluationService.findEvaluationByID(goodsID);
@@ -60,17 +62,17 @@ public class EvaluationController {
         return resultMap;
     }
 
-    @RequestMapping(value = "/updateEvaluationByID",method = RequestMethod.POST)
+    @RequestMapping(value = "/updateEvaluationByID")
     @ResponseBody
     public Map<String,Object> updateEvaluationByID(String evaluationID){
-        evaluationService.updateEvaluationByID(evaluationService.findEvaluationByID(evaluationID));
+        evaluationService.editEvaluationByID(evaluationService.findEvaluationByID(evaluationID));
         Map<String,Object> resultMap=new HashMap<>();
         resultMap.put("result","success");
         System.out.println(" 评价已更新！");
         return resultMap;
     }
 
-    @RequestMapping(value = "/deleteEvaluationByID", method = RequestMethod.POST)
+    @RequestMapping(value = "/deleteEvaluationByID")
     @ResponseBody
     public Map<String, Object> deleteCartByID(String evaluationID) {
         evaluationService.deleteEvaluationByID(evaluationID);
@@ -78,6 +80,5 @@ public class EvaluationController {
         resultMap.put("result", "success");
         System.out.println("我返回了");
         return resultMap;
-
     }
 }

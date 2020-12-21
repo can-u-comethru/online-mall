@@ -30,7 +30,7 @@ public class AdminService {
     }
 
     public boolean addAdmin(Admin admin){
-        return adminDao.addAdmin(admin.getAdminID(),admin.getAdminName(),admin.getAdminPwd(),admin.getAdminEmail(),admin.getAdminTel(),admin.getSupervisor());
+        return adminDao.addAdmin(admin.getAdminID(),admin.getAdminName(),admin.getAdminPwd(),admin.getAdminEmail(),admin.getAdminTel(), (String) admin.getSupervisor());
     }
 
     public boolean deleteAdminByID(String adminID){
@@ -38,6 +38,6 @@ public class AdminService {
     }
 
     public boolean editAdminByID(Admin admin){
-        return adminDao.updateAdminByID(admin.getAdminID(),admin.getAdminName(),admin.getAdminPwd(),admin.getAdminEmail(),admin.getAdminTel(),admin.getSupervisor());
+        return adminDao.updateAdminByID(admin.getAdminID(),admin.getAdminName(),admin.getAdminPwd(),admin.getAdminEmail(),admin.getAdminTel(), (String) admin.getSupervisor());
     }
 }
