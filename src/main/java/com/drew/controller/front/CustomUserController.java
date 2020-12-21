@@ -100,10 +100,20 @@ public class CustomUserController {
 
     @RequestMapping(value = "/doUpdate")
     @ResponseBody
-    public Map<String, Object> doUpdate(Customer customer) {
-        String result = "fail";
-        customerService.editCustomerByID(customer);
-        result = "success";
+    public Map<String, Object> doUpdate(String cusName, String cusPwd, String cusEmail, String cusTel, String cusAddress) {
+        String result;
+        Customer customer1=customerService.findCustomerByName(cusName);
+        if(customer1==null){
+            result = "fail";
+        }
+        else {
+            customer1.setCusName(cusName);
+            customer1.setCusEmail(cusEmail);
+            customer1.setCusAddress(cusAddress);
+            customer1.setCusPwd(cusPwd);
+            customer1.setCusTel(cusTel);
+            result = "success";
+        }
         Map<String, Object> resultMap = new HashMap<String, Object>();
         resultMap.put("result", result);
         return resultMap;
