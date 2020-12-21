@@ -25,7 +25,7 @@ public class OrderFormService {
     }
 
     public boolean addOrderForm(OrderForm orderForm){
-        return orderFormDao.addOrderForm(orderForm.getOrderFormID(),orderForm.getCusID(),orderForm.getSum(),orderForm.getStatus());
+        return orderFormDao.addOrderForm(orderForm.getOrderFormID(),orderForm.getCusID(),orderForm.getSum(),orderForm.getStatus(),orderForm.getTime());
     }
 
     public boolean deleteOrderFormByID(String orderFormID){

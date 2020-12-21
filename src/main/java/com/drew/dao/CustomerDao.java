@@ -13,6 +13,12 @@ public interface CustomerDao {
     @Select("select * from customer where cusID=#{cusID}")
     Customer findCustomerByID(@Param("cusID") String cusID);
 
+    @Select("select * from customer where cusName=#{cusName}")
+    Customer findCustomerByName(@Param("cusName") String cusName);
+
+    @Select("select * from customer where cusName=#{cusEmail}")
+    Customer findCustomerByEmail(@Param("cusName") String cusEmail);
+
     @Insert("insert into customer(cusID,cusName,cusPwd,cusEmail,cusTel,cusAddress) values(#{cusID},#{cusName},#{cusPwd},#{cusEmail},#{cusTel},#{cusAddress})")
     boolean addCustomer(@Param("cusID") String cusID,@Param("cusName") String cusName,@Param("cusPwd") String cusPwd,@Param("cusEmail") String cusEmail,@Param("cusTel") String cusTel,@Param("cusAddress") String cusAddress);
 

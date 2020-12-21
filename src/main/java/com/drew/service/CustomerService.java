@@ -20,9 +20,9 @@ public class CustomerService {
         return customerDao.findCustomerByID(cusID);
     }
 
-    public boolean isCustomerExist(String cusID) {
-        return customerDao.findCustomerByID(cusID) != null;
-    }
+    public Customer findCustomerByName(String cusName){ return customerDao.findCustomerByName(cusName);}
+
+    public Customer findCustomerByEmail(String cusEmail){ return customerDao.findCustomerByEmail(cusEmail);}
 
     public boolean addCustomer(Customer customer){
         return customerDao.addCustomer(customer.getCusID(),customer.getCusName(),customer.getCusPwd(),customer.getCusTel(),customer.getCusEmail(),customer.getCusAddress());

@@ -33,7 +33,7 @@ public class CartService {
     }
 
     public boolean deleteCartByID(Cart cart){
-        return cartDao.deleteCartByID(cart.getcusID(),cart.getGoodsID());
+        return cartDao.deleteCartByID(cart.getCusID(),cart.getGoodsID());
     }
 
     public boolean updateCartByID(Cart cart){
