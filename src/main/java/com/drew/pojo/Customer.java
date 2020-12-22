@@ -12,4 +12,5 @@ public class Customer {
     private String cusEmail;
     private String cusTel;
     private String cusAddress;
+    private float balance;
 }
