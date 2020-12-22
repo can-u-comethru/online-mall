@@ -33,4 +33,7 @@ public interface CustomerDao {
 
     @Update("update customer set balance=#{balance} where cusID=#{cusID}")
     boolean updateBalanceByID(@Param("cusID") String cusID,@Param("balance") float balance);
+
+    @Select("select balance from customer where cusID=#{cusID}")
+    float getBalanceByID(@Param("cusID") String cusID);
 }

@@ -1,5 +1,6 @@
 package com.drew.controller.admin;
 
+import com.drew.pojo.Customer;
 import com.drew.pojo.OrderForm;
 import com.drew.pojo.Orders;
 import com.drew.service.CustomerService;
@@ -82,6 +83,8 @@ public class OrderFormController {
         }
         for (OrderForm orderForm:orderForms) {
            orderFormService.editOrderFormByID(orderForm.getOrderFormID(),"processed");
+           Customer customer=customerService.findCustomerByID(orderForm.getCusID());
+           customerService.updateBalanceByID(customer.getCusID(),customer.getBalance()-orderForm.getAmount()*goodsService.getPriceByID(orderForm.getGoodsID()));
            goodsService.updateStockByID(orderForm.getGoodsID(),goodsService.getStockByID(orderForm.getGoodsID())-orderForm.getAmount());
         }
         List<OrderForm> orderForms2=orderFormService.findAllOrderForm();

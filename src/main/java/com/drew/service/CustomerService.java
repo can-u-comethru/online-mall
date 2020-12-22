@@ -43,4 +43,8 @@ public class CustomerService {
     public boolean updateBalanceByID(String cusID,float balance){
         return customerDao.updateBalanceByID(cusID,balance);
     }
+
+    public float getBalanceByID(String cusID){
+        return customerDao.getBalanceByID(cusID);
+    }
 }
