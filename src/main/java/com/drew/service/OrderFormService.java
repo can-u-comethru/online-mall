@@ -16,7 +16,7 @@ public class OrderFormService {
         return orderFormDao.findAllOrderForm();
     }
 
-    public List<OrderForm> findOrderFormByID(String orderFormID){
+    public OrderForm findOrderFormByID(String orderFormID){
         return orderFormDao.findOrderFormByID(orderFormID);
     }
 

@@ -25,7 +25,7 @@ public class CustomerService {
     public Customer findCustomerByEmail(String cusEmail){ return customerDao.findCustomerByEmail(cusEmail);}
 
     public boolean addCustomer(Customer customer){
-        return customerDao.addCustomer(customer.getCusID(),customer.getCusName(),customer.getCusPwd(),customer.getCusTel(),customer.getCusEmail(),customer.getCusAddress());
+        return customerDao.addCustomer(customer.getCusID(),customer.getCusName(),customer.getCusPwd(),customer.getCusTel(),customer.getCusEmail(),customer.getCusAddress(),customer.getBalance());
     }
 
     public boolean deleteCustomerByID(String cusID){
@@ -33,7 +33,7 @@ public class CustomerService {
     }
 
     public boolean editCustomerByID(Customer customer){
-        return customerDao.updateCustomerByID(customer.getCusID(),customer.getCusName(),customer.getCusPwd(),customer.getCusTel(),customer.getCusEmail(),customer.getCusAddress());
+        return customerDao.updateCustomerByID(customer.getCusID(),customer.getCusName(),customer.getCusPwd(),customer.getCusTel(),customer.getCusEmail(),customer.getCusAddress(),customer.getBalance());
     }
 
     public String getCusNameByID(String cusID){
