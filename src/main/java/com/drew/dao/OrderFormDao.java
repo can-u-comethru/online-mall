@@ -12,7 +12,7 @@ public interface OrderFormDao {
     List<OrderForm> findAllOrderForm();
 
     @Select("select * from orderForm where orderFormID=#{orderFormID}")
-    OrderForm findOrderFormByID(@Param("orderFormID") String orderFormID);
+    List<OrderForm> findOrderFormByID(@Param("orderFormID") String orderFormID);
 
     @Insert("insert into orderForm(orderFormID,cusID,goodsID,amount,status,orderFormDate) values(#{orderFormID},#{cusID},#{goodsID},#{amount},#{status},#{orderFormDate})")
     boolean addOrderForm(@Param("orderFormID") String orderFormID,@Param("cusID") String cusID,@Param("goodsID") String goodsID,@Param("amount") int amount,@Param("status") String status,

@@ -32,7 +32,7 @@ public class CustomOrderFormController {
             return resultMap;
         }
         else{
-            OrderForm order=orderFormService.findOrderFormByID(oderFormID);
+            OrderForm order= (OrderForm) orderFormService.findOrderFormByID(oderFormID);
             Map<String, Object> resultMap = new HashMap<>();
             resultMap.put("result",order);
             return resultMap;
