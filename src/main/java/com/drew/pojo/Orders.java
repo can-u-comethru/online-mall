@@ -7,13 +7,12 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class OrderForm {
+@NoArgsConstructor
+public class Orders {
     private String orderFormID;
     private String cusID;
-    private String goodsID;
-    private int amount;
+    private float sum;
     private String status;
     private Date orderFormDate;
 }

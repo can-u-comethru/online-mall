@@ -24,4 +24,13 @@ public interface GoodsDao {
 
     @Select("select goodsName from goods where goodsID=#{goodsID}")
     String getGoodsNameByID(@Param("goodsID") String goodsID);
+
+    @Select("select price from goods where goodsID=#{goodsID}")
+    float getPriceByID(@Param("goodsID") String goodsID);
+
+    @Select("select stock from goods where goodsID=#{goodsID}")
+    int getStockByID(@Param("goodsID") String goodsID);
+
+    @Update("update goods set stock=#{stock} where goodsID=#{goodsID}")
+    boolean updateStockByID(@Param("goodsID") String goodsID,@Param("stock") int stock);
 }
