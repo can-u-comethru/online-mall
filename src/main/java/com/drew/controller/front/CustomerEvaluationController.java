@@ -1,7 +1,9 @@
 package com.drew.controller.front;
 
 import com.alibaba.fastjson.JSONArray;
+import com.drew.pojo.Customer;
 import com.drew.pojo.Evaluation;
+import com.drew.service.CustomerService;
 import com.drew.service.EvaluationService;
 import com.drew.service.ShoppingRecordService;
 import org.springframework.stereotype.Controller;
@@ -31,7 +33,7 @@ public class CustomerEvaluationController {
     @ResponseBody
     public Map<String,Object> addEvaluation(String evaluationID,String cusID, String goodsID, String commentary){
         System.out.println("我添加了"+cusID+" "+goodsID);
-        String result = null;
+        String result;
         if(shoppingRecordService.getUserProductRecord(cusID,goodsID)){
             Evaluation evaluation = new Evaluation();
             evaluation.setEvaluationID(evaluationID);
@@ -64,8 +66,12 @@ public class CustomerEvaluationController {
 
     @RequestMapping(value = "/updateEvaluationByID")
     @ResponseBody
-    public Map<String,Object> updateEvaluationByID(String evaluationID){
-        evaluationService.editEvaluationByID(evaluationService.findEvaluationByID(evaluationID));
+    public Map<String,Object> updateEvaluationByID(String evaluationID,String commentary){
+        Evaluation evaluation=evaluationService.findEvaluationByID(evaluationID);
+        evaluation.setCommentary(commentary);
+        Date date=new Date();
+        evaluation.setEvaluationDate(date);
+        evaluationService.addEvaluation(evaluation);
         Map<String,Object> resultMap=new HashMap<>();
         resultMap.put("result","success");
         System.out.println(" 评价已更新！");
@@ -78,7 +84,7 @@ public class CustomerEvaluationController {
         evaluationService.deleteEvaluationByID(evaluationID);
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("result", "success");
-        System.out.println("我返回了");
+        System.out.println("评论已删除！");
         return resultMap;
     }
 }

@@ -41,7 +41,7 @@ public class CartController {
             return resultMap;
         }
         else{
-            String result="您还没有创建购物车，请去挑选您喜欢商品添加进来吧。";
+            String result="您的购物车内还没有商品，快去挑选您喜欢商品添加进来吧！";
             Map<String, Object> resultMap = new HashMap<>();
             resultMap.put("result", result);
             return resultMap;

@@ -20,32 +20,32 @@ public class CustomUserController {
     @Resource
     Customer customer;
 
-    @RequestMapping(value = "/register")
+    @RequestMapping(value = "/user/register")
     public String register() {
         return "register";
     }
 
-    @RequestMapping(value = "/amend_info")
+    @RequestMapping(value = "/user/amend_info")
     public String amend_info() {
         return "amend_info";
     }
 
-    @RequestMapping(value = "/login")
+    @RequestMapping(value = "/user/login")
     public String login() {
         return "login";
     }
 
-    @RequestMapping(value = "/main")
+    @RequestMapping(value = "/user/main")
     public String main() {
         return "main";
     }
 
-    @RequestMapping(value = "/control")
+    @RequestMapping(value = "/user/control")
     public String control() {
         return "control";
     }
 
-    @RequestMapping(value = "/doLogin")
+    @RequestMapping(value = "/user/doLogin")
     @ResponseBody
     public Map<String, Object> customerLogin(String cusID, String cusPwd, HttpSession httpSession) {
         System.out.println("我接收到了登录请求" + cusID + " " + cusPwd);
@@ -67,7 +67,7 @@ public class CustomUserController {
         return resultMap;
     }
 
-    @RequestMapping(value = "/doRegister")
+    @RequestMapping(value = "/user/doRegister")
     @ResponseBody
     public Map<String, Object> doRegister(String cusName, String cusPwd, String cusEmail, String cusTel, String cusAddress) {
 
@@ -89,6 +89,7 @@ public class CustomUserController {
                 customer1.setCusAddress(cusAddress);
                 customer1.setCusPwd(cusPwd);
                 customer1.setCusTel(cusTel);
+                customer1.setBalance(0.0f);
                 customerService.addCustomer(customer1);
                 result = "success";
             }
@@ -98,7 +99,7 @@ public class CustomUserController {
         return resultMap;
     }
 
-    @RequestMapping(value = "/doUpdate")
+    @RequestMapping(value = "/UpdateInfo")
     @ResponseBody
     public Map<String, Object> doUpdate(String cusName, String cusPwd, String cusEmail, String cusTel, String cusAddress) {
         String result;
@@ -112,6 +113,7 @@ public class CustomUserController {
             customer1.setCusAddress(cusAddress);
             customer1.setCusPwd(cusPwd);
             customer1.setCusTel(cusTel);
+            customerService.editCustomerByID(customer1);
             result = "success";
         }
         Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -119,7 +121,7 @@ public class CustomUserController {
         return resultMap;
     }
 
-    @RequestMapping(value = "/doLogout")
+    @RequestMapping(value = "/user/doLogout")
     public String doLogout(HttpSession httpSession){
         httpSession.setAttribute("currentUser","");
         return "redirect:login";
@@ -129,9 +131,29 @@ public class CustomUserController {
     @ResponseBody
     public Map<String, Object> getCustomerById(String cusID) {
         Customer customer = customerService.findCustomerByID(cusID);
-        String result = JSON.toJSONString(cusID);
+        String result = JSON.toJSONString(customer);
         Map<String,Object> resultMap = new HashMap<String,Object>();
         resultMap.put("result",result);
+        return resultMap;
+    }
+
+    @RequestMapping(value = "/chargeBalance")
+    @ResponseBody
+    public Map<String,Object> updateBalance(String cusID,float Balance){
+        String result;
+        if(Balance>0) {
+            Customer customer = customerService.findCustomerByID(cusID);
+            String id = customer.getCusID();
+            Float overage = customer.getBalance();
+            Float sum = overage + Balance;
+            customerService.updateBalanceByID(id, sum);
+            result="success";
+        }
+        else{
+            result="failed";
+        }
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("result", result);
         return resultMap;
     }
 }
