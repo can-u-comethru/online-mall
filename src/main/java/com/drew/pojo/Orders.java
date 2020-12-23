@@ -9,10 +9,10 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Evaluation {
-    private String evaluationID;
+public class Orders {
+    private String orderFormID;
     private String cusID;
-    private String goodsID;
-    private String commentary;
-    private Date evaluationDate;
+    private float sum;
+    private String status;
+    private Date orderFormDate;
 }

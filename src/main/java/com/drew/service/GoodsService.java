@@ -46,4 +46,16 @@ public class GoodsService {
     public String getGoodsNameByID(String goodsID){
         return goodsDao.getGoodsNameByID(goodsID);
     }
+
+    public float getPriceByID(String goodsID){
+        return goodsDao.getPriceByID(goodsID);
+    }
+
+    public int getStockByID(String goodsID){
+        return goodsDao.getStockByID(goodsID);
+    }
+
+    public boolean updateStockByID(String goodsID,int stock){
+        return goodsDao.updateStockByID(goodsID,stock);
+    }
 }

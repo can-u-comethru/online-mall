@@ -101,6 +101,7 @@
 						<th>邮箱</th>
 						<th>电话</th>
 						<th>收货地址</th>
+						<th>账户余额</th>
 						<th>操作</th>
 					</tr>
 					</thead>
@@ -111,6 +112,7 @@
 						<td th:text="${customer.getCusEmail()}"></td>
 						<td th:text="${customer.getCusTel()}"></td>
 						<td th:text="${customer.getCusAddress()}"></td>
+						<td th:text="${customer.getBalance()}"></td>
 						<td>
 							<a class="btn btn-sm btn-danger" th:href="@{/customer/delete(cusID=${customer.getCusID()})}">拉黑</a>
 						</td>

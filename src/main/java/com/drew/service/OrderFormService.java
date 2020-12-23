@@ -16,7 +16,7 @@ public class OrderFormService {
         return orderFormDao.findAllOrderForm();
     }
 
-    public OrderForm findOrderFormByID(String orderFormID){
+    public List<OrderForm> findOrderFormByID(String orderFormID){
         return orderFormDao.findOrderFormByID(orderFormID);
     }
 
@@ -25,14 +25,14 @@ public class OrderFormService {
     }
 
     public boolean addOrderForm(OrderForm orderForm){
-        return orderFormDao.addOrderForm(orderForm.getOrderFormID(),orderForm.getCusID(),orderForm.getSum(),orderForm.getStatus());
+        return orderFormDao.addOrderForm(orderForm.getOrderFormID(),orderForm.getCusID(),orderForm.getGoodsID(),orderForm.getAmount(),orderForm.getStatus(),orderForm.getOrderFormDate());
     }
 
     public boolean deleteOrderFormByID(String orderFormID){
         return orderFormDao.deleteOrderFormByID(orderFormID);
     }
 
-    public boolean editOrderFormByID(OrderForm orderForm){
-        return orderFormDao.updateOrderFormByID(orderForm.getOrderFormID(),orderForm.getStatus());
+    public boolean editOrderFormByID(String orderFormID,String status){
+        return orderFormDao.updateOrderFormByID(orderFormID,status);
     }
 }

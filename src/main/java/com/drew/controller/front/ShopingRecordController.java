@@ -34,11 +34,11 @@ public class ShopingRecordController {
         return "shopping_handle";
     }
 
-    @RequestMapping(value = "/addShoppingRecord",method = RequestMethod.POST)
+    @RequestMapping(value = "/addShoppingRecord")
     @ResponseBody
     public Map<String,Object> addShoppingRecord(String cusID, String goodsID,String goodsName,String iamge,String time,String status,float price,int amounts){
         System.out.println("我添加了"+cusID+" "+goodsID);
-        String result = null;
+        String result;
         Goods goods = goodsService.findGoodsByID(cusID);
         if(amounts<=goods.getStock()) {
             ShoppingRecord shoppingRecord = new ShoppingRecord();
@@ -63,7 +63,7 @@ public class ShopingRecordController {
         return resultMap;
     }
 
-    @RequestMapping(value = "/changeShoppingRecord",method = RequestMethod.POST)
+    @RequestMapping(value = "/changeShoppingRecord")
     @ResponseBody
     public Map<String,Object> changeShoppingRecord(String cusID,String goodsID,String time,String status){
         System.out.println("我接收了"+cusID+" "+goodsID+" "+time+" "+status);
@@ -78,7 +78,7 @@ public class ShopingRecordController {
         return resultMap;
     }
 
-    @RequestMapping(value = "/getShoppingRecords",method = RequestMethod.POST)
+    @RequestMapping(value = "/getShoppingRecords")
     @ResponseBody
     public Map<String,Object> getShoppingRecords(String cusID){
         List<ShoppingRecord> shoppingRecordList = shoppingRecordService.getShoppingRecords(cusID);
@@ -88,7 +88,7 @@ public class ShopingRecordController {
         return resultMap;
     }
 
-    @RequestMapping(value = "/getShoppingRecordsByOrderStatus",method = RequestMethod.POST)
+    @RequestMapping(value = "/getShoppingRecordsByOrderStatus")
     @ResponseBody
     public Map<String,Object> getShoppingRecordsByOrderStatus(String status){
         List<ShoppingRecord> shoppingRecordList = shoppingRecordService.getShoppingRecordsByOrderStatus(status);
@@ -98,19 +98,17 @@ public class ShopingRecordController {
         return resultMap;
     }
 
-    @RequestMapping(value = "/getAllShoppingRecords",method = RequestMethod.POST)
+    @RequestMapping(value = "/getAllShoppingRecords")
     @ResponseBody
     public Map<String,Object> getAllShoppingRecords(){
-//        System.out.println("wo在这里i");
         List<ShoppingRecord> shoppingRecordList = shoppingRecordService.getAllShoppingRecords();
         String shoppingRecords = JSONArray.toJSONString(shoppingRecordList);
         Map<String,Object> resultMap = new HashMap<String,Object>();
         resultMap.put("result",shoppingRecords);
-//        System.out.println("我反悔了"+shoppingRecords);
         return resultMap;
     }
 
-    @RequestMapping(value = "/getUserProductRecord",method = RequestMethod.POST)
+    @RequestMapping(value = "/getUserProductRecord")
     @ResponseBody
     public Map<String,Object> getUserProductRecord(String cusID,String goodsID){
         String result = "false";

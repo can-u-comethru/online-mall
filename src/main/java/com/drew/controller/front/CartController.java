@@ -26,12 +26,12 @@ public class CartController {
     @Resource
     private CartService cartService;
 
-    @RequestMapping(value = "/Cart")
+    @RequestMapping(value = "/cart")
     public String findAllCart() {
-        return "Cart";
+        return "cart";
     }
 
-    @RequestMapping(value = "/findCart", method = RequestMethod.POST)
+    @RequestMapping(value = "/findCart")
     @ResponseBody
     public Map<String, Object> findCartByID(String cusID) {
         if(cartService.isCartExist(cusID)==true) {
@@ -41,36 +41,36 @@ public class CartController {
             return resultMap;
         }
         else{
-            String result="您还没有创建购物车，请去挑选您喜欢商品添加进来吧。";
+            String result="您的购物车内还没有商品，快去挑选您喜欢商品添加进来吧！";
             Map<String, Object> resultMap = new HashMap<>();
             resultMap.put("result", result);
             return resultMap;
         }
     }
 
-    @RequestMapping(value = "/addCart", method = RequestMethod.POST)
+    @RequestMapping(value = "/addCart")
     @ResponseBody
     public Map<String, Object> addCart(String cusID, String goodsID, int amount) {
-        System.out.println("数量为：" + amount);
-        Cart cart = cartService.findCartByID(cusID);
-        if (cart == null) {
-            Cart cart1 = new Cart();
-            cart1.getcusID();
-            cart1.getGoodsID();
-            cart1.getAmount();
-            cart1.setPrice(goodsService.findGoodsByID(goodsID).getPrice() * amount);
-            cartService.addCart(cart1);
-        } else {
-            cart.setAmount(cart.getAmount() + amount);
-            cart.setPrice(goodsService.findGoodsByID(goodsID).getPrice() * cart.getAmount());
-        }
-        Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("result", "success");
-        System.out.println("返回");
-        return resultMap;
+            System.out.println("数量为：" + amount);
+            Cart cart = cartService.findCartByID(cusID);
+            if (cart == null) {
+                Cart cart1 = new Cart();
+                cart1.getCusID();
+                cart1.getGoodsID();
+                cart1.getAmount();
+                cart1.setPrice(goodsService.findGoodsByID(goodsID).getPrice() * amount);
+                cartService.addCart(cart1);
+            } else {
+                cart.setAmount(cart.getAmount() + amount);
+                cart.setPrice(goodsService.findGoodsByID(goodsID).getPrice() * cart.getAmount());
+            }
+            Map<String, Object> resultMap = new HashMap<>();
+            resultMap.put("result", "success");
+            System.out.println("返回");
+            return resultMap;
     }
 
-    @RequestMapping(value = "/deleteCartByID", method = RequestMethod.POST)
+    @RequestMapping(value = "/deleteCartByID")
     @ResponseBody
     public Map<String, Object> deleteCartByID(String cusID) {
         cartService.deleteCartByID(cartService.findCartByID(cusID));
@@ -80,7 +80,8 @@ public class CartController {
         return resultMap;
 
     }
-    @RequestMapping(value = "/updateCartByID",method = RequestMethod.POST)
+
+    @RequestMapping(value = "/updateCartByID")
     @ResponseBody
     public Map<String,Object> updateCartByID(String cusID){
         cartService.updateCartByID(cartService.findCartByID(cusID));
