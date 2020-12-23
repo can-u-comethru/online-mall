@@ -58,4 +58,9 @@ public class GoodsService {
     public boolean updateStockByID(String goodsID,int stock){
         return goodsDao.updateStockByID(goodsID,stock);
     }
+
+    public int cnt(){
+        List<Goods> items=goodsDao.findAllGoods();
+        return items.size();
+    }
 }

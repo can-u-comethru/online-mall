@@ -40,4 +40,9 @@ public class AdminService {
     public boolean editAdminByID(Admin admin){
         return adminDao.updateAdminByID(admin.getAdminID(),admin.getAdminName(),admin.getAdminPwd(),admin.getAdminEmail(),admin.getAdminTel(), (String) admin.getSupervisor());
     }
+
+    public int cnt(){
+        List<Admin> admins=adminDao.findAllAdmin();
+        return admins.size();
+    }
 }
