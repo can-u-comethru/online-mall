@@ -2,6 +2,7 @@ package com.drew.service;
 
 import com.drew.dao.AdminDao;
 import com.drew.pojo.Admin;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

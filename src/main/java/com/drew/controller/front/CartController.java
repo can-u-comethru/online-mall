@@ -26,9 +26,9 @@ public class CartController {
     @Resource
     private CartService cartService;
 
-    @RequestMapping(value = "/cart")
+    @RequestMapping(value = "/user/shopping_cart")
     public String findAllCart() {
-        return "cart";
+        return "user/shopping_cart";
     }
 
     @RequestMapping(value = "/findCart")

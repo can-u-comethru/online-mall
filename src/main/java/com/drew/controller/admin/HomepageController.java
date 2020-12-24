@@ -4,6 +4,7 @@ import com.drew.pojo.OrderForm;
 import com.drew.pojo.Orders;
 import com.drew.service.GoodsService;
 import com.drew.service.OrderFormService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +15,6 @@ import java.util.*;
 
 @Controller
 public class HomepageController {
-
     @Resource
     OrderFormService orderFormService;
 

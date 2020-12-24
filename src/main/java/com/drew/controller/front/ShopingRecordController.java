@@ -48,8 +48,7 @@ public class ShopingRecordController {
             shoppingRecord.setAmounts(amounts);
             shoppingRecord.setStatus("0");
             Date date = new Date();
-            SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
-            shoppingRecord.setTime(sf.format(date));
+            shoppingRecord.setTime(date);
             goods.setStock(goods.getStock()-amounts);
             goodsService.updateGoodsByID(goods);
             shoppingRecordService.addShoppingRecord(cusID, goodsID, goodsName, iamge, time, status, price, amounts);

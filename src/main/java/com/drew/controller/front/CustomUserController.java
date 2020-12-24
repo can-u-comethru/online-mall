@@ -20,32 +20,32 @@ public class CustomUserController {
     @Resource
     Customer customer;
 
-    @RequestMapping(value = "/user/register")
+    @RequestMapping(value = "/register")
     public String register() {
         return "register";
     }
 
-    @RequestMapping(value = "/user/amend_info")
+    @RequestMapping(value = "/amend_info")
     public String amend_info() {
         return "amend_info";
     }
 
-    @RequestMapping(value = "/user/login")
+    @RequestMapping(value = "/login")
     public String login() {
         return "login";
     }
 
-    @RequestMapping(value = "/user/main")
+    @RequestMapping(value = "/main")
     public String main() {
         return "main";
     }
 
-    @RequestMapping(value = "/user/control")
+    @RequestMapping(value = "/control")
     public String control() {
         return "control";
     }
 
-    @RequestMapping(value = "/user/doLogin")
+    @RequestMapping(value = "/doLogin")
     @ResponseBody
     public Map<String, Object> customerLogin(String cusID, String cusPwd, HttpSession httpSession) {
         System.out.println("我接收到了登录请求" + cusID + " " + cusPwd);
@@ -67,7 +67,7 @@ public class CustomUserController {
         return resultMap;
     }
 
-    @RequestMapping(value = "/user/doRegister")
+    @RequestMapping(value = "/doRegister")
     @ResponseBody
     public Map<String, Object> doRegister(String cusName, String cusPwd, String cusEmail, String cusTel, String cusAddress) {
 
@@ -121,10 +121,10 @@ public class CustomUserController {
         return resultMap;
     }
 
-    @RequestMapping(value = "/user/doLogout")
+    @RequestMapping(value = "/doLogout")
     public String doLogout(HttpSession httpSession){
         httpSession.setAttribute("currentUser","");
-        return "redirect:login";
+        return "redirect:/user/login";
     }
 
     @RequestMapping(value = "/getCustomerById")
