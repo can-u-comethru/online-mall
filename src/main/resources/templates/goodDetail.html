@@ -4,10 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>商品详情</title>
+    <link href="../static/css/goodDetail.css" th:href="@{/css/goodDetail.css}" rel="stylesheet" type="text/css" />
+    <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
-    <div id="header" th:replace="commons/header::public_header"></div>
+    <div th:replace="~{commons/common::topbar}"></div>
     <div class="container">
         <div>
             <div class="title">
@@ -112,11 +114,6 @@
             </form>
         </div>
     </div>
-    <div id="footer" th:replace="commons/footer::public_footer"></div>
-    <link href="../static/css/goodDetail.css" th:href="@{~/css/goodDetail.css}" rel="stylesheet" type="text/css" />
-    <link href="../static/css/bootstrap.min.css" th:href="@{~/css/bootstrap.min.css}" rel="stylesheet"
-        type="text/css" />
-    <script type="text/javascript" src="../static/js/goodDetail.js" th:src="@{~/js/goodDetail.js}"></script>
 </body>
 
 </html>
