@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 	<head>
@@ -33,11 +32,6 @@
 				to {
 					opacity: 1
 				}
-			}
-			
-			.chartjs-render-monitor {
-				-webkit-animation: chartjs-render-animation 0.001s;
-				animation: chartjs-render-animation 0.001s;
 			}
 
 			.barcon {
@@ -93,6 +87,7 @@
 				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
 					<h2>商品列表</h2>
 					<a class="btn btn-sm btn-success" th:href="@{/transit2}">上架新商品</a>
+					<p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
 					<div class="table-responsive">
 						<table class="table table-striped table-sm">
 							<thead>

@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 	<head>
@@ -34,11 +33,7 @@
 					opacity: 1
 				}
 			}
-			
-			.chartjs-render-monitor {
-				-webkit-animation: chartjs-render-animation 0.001s;
-				animation: chartjs-render-animation 0.001s;
-			}
+
 		</style>
 	</head>
 
@@ -76,10 +71,6 @@
 							<input th:value="${admin.getSupervisor()}" type="text" class="form-control" id="supervisor" name="supervisor" aria-describedby="superHelp">
 							<small id="superHelp" class="form-text text-muted">'is' or 'not'</small>
 						</div>
-<!--						<div class="form-group form-check">-->
-<!--							<input type="checkbox" class="form-check-input" id="exampleCheck1">-->
-<!--							<label class="form-check-label" for="exampleCheck1">Check me out</label>-->
-<!--						</div>-->
 						<button type="submit" class="btn btn-primary">确认修改</button>
 					</form>
 				</main>

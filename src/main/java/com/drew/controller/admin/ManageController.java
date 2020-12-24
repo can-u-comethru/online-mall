@@ -2,16 +2,11 @@ package com.drew.controller.admin;
 
 import com.drew.pojo.Admin;
 import com.drew.service.AdminService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
 import javax.websocket.server.PathParam;
 import java.util.List;
 
@@ -28,9 +23,17 @@ public class ManageController {
     }
 
     @RequestMapping("/admin/add")
-    public String add(Admin admin){
-        adminService.addAdmin(admin);
-        return "redirect:/admin/list";
+    public String add(Admin admin,Model model){
+        if(adminService.isAdminExist(admin.getAdminID())==true){
+            model.addAttribute("msg","管理员已存在！");
+            List<Admin> admins=adminService.findAllAdmin();
+            model.addAttribute("admins",admins);
+            return "admin/list";
+        }
+        else{
+            adminService.addAdmin(admin);
+            return "redirect:/admin/list";
+        }
     }
 
     @RequestMapping("/judge1")

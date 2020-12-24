@@ -41,7 +41,13 @@ public class  GoodsController {
     }
 
     @RequestMapping("/goods/add")
-    public String add(Goods goods){
+    public String add(Goods goods,Model model){
+        if(goodsService.isGoodsExist(goods.getGoodsID())==true){
+            model.addAttribute("msg","该商品已存在，请勿重复添加！");
+            List<Goods> items=goodsService.findAllGoods();
+            model.addAttribute("items",items);
+            return "goods/list";
+        }
         goodsService.addGoods(goods);
         return "redirect:/goods/list";
     }
