@@ -47,4 +47,9 @@ public class CustomerService {
     public float getBalanceByID(String cusID){
         return customerDao.getBalanceByID(cusID);
     }
+
+    public int cnt(){
+        List<Customer> customers=customerDao.findAllCustomer();
+        return customers.size();
+    }
 }

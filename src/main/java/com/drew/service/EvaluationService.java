@@ -39,4 +39,9 @@ public class EvaluationService {
     public boolean editEvaluationByID(Evaluation evaluation){
         return evaluationDao.updateEvaluationByID(evaluation.getEvaluationID(),evaluation.getCommentary(),evaluation.getEvaluationDate());
     }
+
+    public int cnt(){
+        List<Evaluation> evaluations=evaluationDao.findAllEvaluation();
+        return evaluations.size();
+    }
 }
