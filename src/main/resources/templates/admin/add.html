@@ -47,18 +47,26 @@
 				<div th:replace="~{commons/common::sidebar(active='list.html')}"></div>
 
 				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-					<form th:action="@{/admin/add}">
+					<form th:action="@{/admin/add}" onsubmit="return checkAll()">
 						<div class="form-group">
 							<label for="adminID">管理员ID</label>
-							<input type="text" class="form-control" id="adminID" name="adminID">
+							<input type="text" class="form-control" id="adminID" name="adminID" onblur="checkID()">
+							<span  style="font-size:13px" id="idSpan"></span>
 						</div>
 						<div class="form-group">
 							<label for="adminName">用户名</label>
-							<input type="text" class="form-control" id="adminName" name="adminName">
+							<input type="text" class="form-control" id="adminName" name="adminName" onblur="checkName()">
+							<span  style="font-size:13px" id="nameSpan"></span>
 						</div>
 						<div class="form-group">
 							<label for="adminPwd">密码</label>
-							<input type="password" class="form-control" id="adminPwd" name="adminPwd">
+							<input type="password" class="form-control" id="adminPwd" name="adminPwd" onblur="checkPwd()">
+							<span  style="font-size:13px" id="pwdSpan"></span>
+						</div>
+						<div class="form-group">
+							<label for="rePwd">确认密码</label>
+							<input type="password" class="form-control" id="rePwd" name="rePwd" onblur="checkRePwd()">
+							<span  style="font-size:13px" id="rePwdSpan"></span>
 						</div>
 						<div class="form-group">
 							<label for="adminEmail">邮箱</label>
@@ -67,12 +75,13 @@
 						</div>
 						<div class="form-group">
 							<label for="adminTel">电话</label>
-							<input type="tel" class="form-control" id="adminTel" name="adminTel">
+							<input type="tel" class="form-control" id="adminTel" name="adminTel" onblur="checkTel()">
+							<span  style="font-size:13px" id="telSpan"></span>
 						</div>
 						<div class="form-group">
 							<label for="supervisor">是否为超级管理员</label>
-							<input type="text" class="form-control" id="supervisor" name="supervisor" aria-describedby="superHelp">
-							<small id="superHelp" class="form-text text-muted">'is' or 'not'</small>
+							<input type="text" class="form-control" id="supervisor" name="supervisor" aria-describedby="superHelp" onblur="checkSupervisor()">
+							<span  style="font-size:13px" id="supervisorSpan"></span>
 						</div>
 						<button type="submit" class="btn btn-primary">确认添加</button>
 					</form>
@@ -95,36 +104,94 @@
 
 		<!-- Graphs -->
 		<script type="text/javascript" src="asserts/js/Chart.min.js"></script>
-		<script>
-			var ctx = document.getElementById("myChart");
-			var myChart = new Chart(ctx, {
-				type: 'line',
-				data: {
-					labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-					datasets: [{
-						data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
-						lineTension: 0,
-						backgroundColor: 'transparent',
-						borderColor: '#007bff',
-						borderWidth: 4,
-						pointBackgroundColor: '#007bff'
-					}]
-				},
-				options: {
-					scales: {
-						yAxes: [{
-							ticks: {
-								beginAtZero: false
-							}
-						}]
-					},
-					legend: {
-						display: false,
-					}
-				}
-			});
-		</script>
 
+		<script>
+			function checkID() {
+				var id = document.getElementById("adminID").value;
+				var spanNode = document.getElementById("idSpan");
+				var reg = /^\d{4,10}$/;
+				if(reg.test(id)){
+					spanNode.innerHTML = "";
+					return true;
+				}else{
+					spanNode.innerHTML = "4-10位的数字".fontcolor("red");
+					return false;
+				}
+			}
+			function checkName() {
+				var name = document.getElementById("adminName").value;
+				var spanNode = document.getElementById("nameSpan");
+				var reg = /^[\u4E00-\u9FA5A-Za-z0-9]{4,10}$/;
+				if(reg.test(name)){
+					spanNode.innerHTML = "";
+					return true;
+				}else{
+					spanNode.innerHTML = "中文、英文、数字但不包括下划线等符号且长度在4-10之间".fontcolor("red");
+					return false;
+				}
+			}
+			function checkPwd() {
+				var pwd = document.getElementById("adminPwd").value;
+				var spanNode = document.getElementById("pwdSpan");
+				var reg = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,10}$/;
+				if(reg.test(pwd)){
+					spanNode.innerHTML = "";
+					return true;
+				}else{
+					spanNode.innerHTML = "必须包含大小写字母和数字的组合，可以使用特殊字符，长度在8-10之间".fontcolor("red");
+					return false;
+				}
+			}
+			function checkRePwd(){
+				var pwd=document.getElementById("adminPwd").value;
+				var rePwd=document.getElementById("rePwd").value;
+				var spanNode=document.getElementById("rePwdSpan");
+				if(pwd==rePwd){
+					spanNode.innerHTML="";
+					return true;
+				}
+				else{
+					spanNode.innerHTML="两次输入的密码不一致".fontcolor("red");
+					return false;
+				}
+			}
+			function checkTel() {
+				var tel = document.getElementById("adminTel").value;
+				var spanNode = document.getElementById("telSpan");
+				var reg = /^(13[0-9]|14[5|7]|15[0|1|2|3|4|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/;
+				if(reg.test(tel)){
+					spanNode.innerHTML = "";
+					return true;
+				}else{
+					spanNode.innerHTML = "手机号码".fontcolor("red");
+					return false;
+				}
+			}
+			function checkSupervisor() {
+				var supervisor = document.getElementById("supervisor").value;
+				var spanNode = document.getElementById("supervisorSpan");
+				if(supervisor=='is'||supervisor=='not'){
+					spanNode.innerHTML = "";
+					return true;
+				}else{
+					spanNode.innerHTML = "is or not".fontcolor("red");
+					return false;
+				}
+			}
+			function checkAll() {
+				var id = checkID();
+				var name = checkName();
+				var pwd = checkPwd();
+				var rePwd=checkRePwd();
+				var tel=checkTel();
+				var supervisor=checkSupervisor();
+				if(id&&name&&pwd&&rePwd&&tel&&supervisor){
+					return true;
+				}else{
+					return false;
+				}
+			}
+		</script>
 	</body>
 
 </html>

@@ -130,12 +130,12 @@
 	function checkCategory() {
 		var category = document.getElementById("category").value;
 		var spanNode = document.getElementById("categorySpan");
-		var reg = /[\u4e00-\u9fa5]/;
+		var reg = /^[\u4E00-\u9FA5A-Za-z0-9_]{4,10}$/;
 		if(reg.test(category)){
 			spanNode.innerHTML = "";
 			return true;
 		}else{
-			spanNode.innerHTML = "中文字符".fontcolor("red");
+			spanNode.innerHTML = "中文、英文、数字包括下划线且长度在4-10之间".fontcolor("red");
 			return false;
 		}
 	}

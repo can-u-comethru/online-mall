@@ -33,11 +33,6 @@
 					opacity: 1
 				}
 			}
-			
-			.chartjs-render-monitor {
-				-webkit-animation: chartjs-render-animation 0.001s;
-				animation: chartjs-render-animation 0.001s;
-			}
 		</style>
 	</head>
 
@@ -51,23 +46,31 @@
 				<div th:replace="~{commons/common::sidebar}"></div>
 
 				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-					<form th:action="@{/goods/edit}">
+					<form th:action="@{/goods/edit}" onsubmit="return checkAll()">
 						<input type="hidden" name="goodsID" th:value="${goods.getGoodsID()}">
 						<div class="form-group">
 							<label for="GoodsName">商品名</label>
-							<input th:value="${goods.getGoodsName()}" type="text" class="form-control" id="goodsName" name="goodsName">
+							<input th:value="${goods.getGoodsName()}" type="text" class="form-control" id="goodsName" name="goodsName" onblur="checkName()">
+							<span  style="font-size:13px" id="nameSpan"></span>
 						</div>
 						<div class="form-group">
 							<label for="description">描述</label>
 							<input th:value="${goods.getDescription()}" type="text" class="form-control" id="description" name="description">
 						</div>
 						<div class="form-group">
+							<label for="category">类别</label>
+							<input th:value="${goods.getCategory()}" type="text" class="form-control" id="category" name="category" onblur="checkCategory()">
+							<span  style="font-size:13px" id="categorySpan"></span>
+						</div>
+						<div class="form-group">
 							<label for="price">价格</label>
-							<input th:value="${goods.getPrice()}" type="text" class="form-control" id="price" name="price">
+							<input th:value="${goods.getPrice()}" type="text" class="form-control" id="price" name="price" onblur="checkPrice()">
+							<span  style="font-size:13px" id="priceSpan"></span>
 						</div>
 						<div class="form-group">
 							<label for="stock">库存</label>
-							<input th:value="${goods.getStock()}" type="text" class="form-control" id="stock" name="stock">
+							<input th:value="${goods.getStock()}" type="text" class="form-control" id="stock" name="stock" onblur="checkStock()">
+							<span  style="font-size:13px" id="stockSpan"></span>
 						</div>
 						<div class="form-group">
 							<label for="image">url</label>
@@ -94,36 +97,68 @@
 
 		<!-- Graphs -->
 		<script type="text/javascript" src="asserts/js/Chart.min.js"></script>
-		<script>
-			var ctx = document.getElementById("myChart");
-			var myChart = new Chart(ctx, {
-				type: 'line',
-				data: {
-					labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-					datasets: [{
-						data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
-						lineTension: 0,
-						backgroundColor: 'transparent',
-						borderColor: '#007bff',
-						borderWidth: 4,
-						pointBackgroundColor: '#007bff'
-					}]
-				},
-				options: {
-					scales: {
-						yAxes: [{
-							ticks: {
-								beginAtZero: false
-							}
-						}]
-					},
-					legend: {
-						display: false,
-					}
-				}
-			});
-		</script>
 
+		<script>
+			function checkName() {
+				var name = document.getElementById("goodsName").value;
+				var spanNode = document.getElementById("nameSpan");
+				var reg = /^[\u4E00-\u9FA5A-Za-z0-9]{4,20}$/;
+				if(reg.test(name)){
+					spanNode.innerHTML = "";
+					return true;
+				}else{
+					spanNode.innerHTML = "中文、英文、数字但不包括下划线等符号且长度在4-20之间".fontcolor("red");
+					return false;
+				}
+			}
+			function checkCategory() {
+				var category = document.getElementById("category").value;
+				var spanNode = document.getElementById("categorySpan");
+				var reg = /^[\u4E00-\u9FA5A-Za-z0-9_]{4,10}$/;
+				if(reg.test(category)){
+					spanNode.innerHTML = "";
+					return true;
+				}else{
+					spanNode.innerHTML = "中文、英文、数字包括下划线且长度在4-10之间".fontcolor("red");
+					return false;
+				}
+			}
+			function checkPrice() {
+				var price = document.getElementById("price").value;
+				var spanNode = document.getElementById("priceSpan");
+				var reg = /^\d+(\.\d+)?$/;
+				if(reg.test(price)){
+					spanNode.innerHTML = "";
+					return true;
+				}else{
+					spanNode.innerHTML = "非负浮点数".fontcolor("red");
+					return false;
+				}
+			}
+			function checkStock() {
+				var stock = document.getElementById("stock").value;
+				var spanNode = document.getElementById("stockSpan");
+				var reg = /^\d+$/;
+				if(reg.test(stock)){
+					spanNode.innerHTML = "";
+					return true;
+				}else{
+					spanNode.innerHTML = "非负整数".fontcolor("red");
+					return false;
+				}
+			}
+			function checkAll() {
+				var name = checkName();
+				var category = checkCategory();
+				var price = checkPrice();
+				var stock = checkStock();
+				if(name&&category&&price&&stock){
+					return true;
+				}else{
+					return false;
+				}
+			}
+		</script>
 	</body>
 
 </html>
