@@ -1,127 +1,181 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<meta name="description" content="">
-		<meta name="author" content="">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
 
-		<title>Dashboard Template for Bootstrap</title>
-		<!-- Bootstrap core CSS -->
-		<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+	<title>Dashboard Template for Bootstrap</title>
+	<!-- Bootstrap core CSS -->
+	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
 
-		<!-- Custom styles for this template -->
-		<link th:href="@{/css/dashboard.css}" rel="stylesheet">
-		<style type="text/css">
-			/* Chart.js */
-			
-			@-webkit-keyframes chartjs-render-animation {
-				from {
-					opacity: 0.99
-				}
-				to {
-					opacity: 1
-				}
+	<!-- Custom styles for this template -->
+	<link th:href="@{/css/dashboard.css}" rel="stylesheet">
+	<style type="text/css">
+		/* Chart.js */
+
+		@-webkit-keyframes chartjs-render-animation {
+			from {
+				opacity: 0.99
 			}
-			
-			@keyframes chartjs-render-animation {
-				from {
-					opacity: 0.99
-				}
-				to {
-					opacity: 1
-				}
+			to {
+				opacity: 1
 			}
-		</style>
-	</head>
+		}
 
-	<body>
+		@keyframes chartjs-render-animation {
+			from {
+				opacity: 0.99
+			}
+			to {
+				opacity: 1
+			}
+		}
+	</style>
+</head>
 
-		<div th:replace="~{commons/common::topbar}"></div>
+<body>
 
-		<div class="container-fluid">
-			<div class="row">
+<div th:replace="~{commons/common::topbar}"></div>
 
-				<div th:replace="~{commons/common::sidebar}"></div>
+<div class="container-fluid">
+	<div class="row">
 
-				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-					<form th:action="@{/goods/add}">
-						<div class="form-group">
-							<label for="goodsID">商品编号</label>
-							<input type="text" class="form-control" id="goodsID" name="goodsID">
-						</div>
-						<div class="form-group">
-							<label for="goodsName">商品名</label>
-							<input type="text" class="form-control" id="goodsName" name="goodsName">
-						</div>
-						<div class="form-group">
-							<label for="description">描述</label>
-							<input type="text" class="form-control" id="description" name="description">
-						</div>
-						<div class="form-group">
-							<label for="price">价格</label>
-							<input type="text" class="form-control" id="price" name="price">
-						</div>
-						<div class="form-group">
-							<label for="stock">库存</label>
-							<input type="text" class="form-control" id="stock" name="stock">
-						</div>
-						<div class="form-group">
-							<label for="image">url</label>
-							<input type="url" class="form-control" id="image" name="image">
-						</div>
-						<button type="submit" class="btn btn-primary">确认添加</button>
-					</form>
-				</main>
-			</div>
-		</div>
+		<div th:replace="~{commons/common::sidebar}"></div>
 
-		<!-- Bootstrap core JavaScript
-    ================================================== -->
-		<!-- Placed at the end of the document so the pages load faster -->
-		<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js"></script>
-		<script type="text/javascript" src="asserts/js/popper.min.js"></script>
-		<script type="text/javascript" src="asserts/js/bootstrap.min.js"></script>
+		<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+			<form th:action="@{/goods/add}" onsubmit="return checkAll()">
+				<div class="form-group">
+					<label for="goodsID">商品编号</label>
+					<input type="text" class="form-control" id="goodsID" name="goodsID" onblur="checkID()">
+					<span  style="font-size:13px" id="idSpan"></span>
+				</div>
+				<div class="form-group">
+					<label for="goodsName">商品名</label>
+					<input type="text" class="form-control" id="goodsName" name="goodsName" onblur="checkName()">
+					<span  style="font-size:13px" id="nameSpan"></span>
+				</div>
+				<div class="form-group">
+					<label for="description">描述</label>
+					<input type="text" class="form-control" id="description" name="description">
+				</div>
+				<div class="form-group">
+					<label for="category">类别</label>
+					<input type="text" class="form-control" id="category" name="category" onblur="checkCategory()">
+					<span  style="font-size:13px" id="categorySpan"></span>
+				</div>
+				<div class="form-group">
+					<label for="price">价格</label>
+					<input type="text" class="form-control" id="price" name="price" onblur="checkPrice()">
+					<span  style="font-size:13px" id="priceSpan"></span>
+				</div>
+				<div class="form-group">
+					<label for="stock">库存</label>
+					<input type="text" class="form-control" id="stock" name="stock" onblur="checkStock()">
+					<span  style="font-size:13px" id="stockSpan"></span>
+				</div>
+				<div class="form-group">
+					<label for="image">image</label>
+					<input type="url" class="form-control" id="image" name="image">
+				</div>
+				<button type="submit" class="btn btn-primary">确认添加</button>
+			</form>
+		</main>
+	</div>
+</div>
 
-		<!-- Icons -->
-		<script type="text/javascript" src="asserts/js/feather.min.js"></script>
-		<script>
-			feather.replace()
-		</script>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js"></script>
+<script type="text/javascript" src="asserts/js/popper.min.js"></script>
+<script type="text/javascript" src="asserts/js/bootstrap.min.js"></script>
 
-		<!-- Graphs -->
-		<script type="text/javascript" src="asserts/js/Chart.min.js"></script>
-		<script>
-			var ctx = document.getElementById("myChart");
-			var myChart = new Chart(ctx, {
-				type: 'line',
-				data: {
-					labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-					datasets: [{
-						data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
-						lineTension: 0,
-						backgroundColor: 'transparent',
-						borderColor: '#007bff',
-						borderWidth: 4,
-						pointBackgroundColor: '#007bff'
-					}]
-				},
-				options: {
-					scales: {
-						yAxes: [{
-							ticks: {
-								beginAtZero: false
-							}
-						}]
-					},
-					legend: {
-						display: false,
-					}
-				}
-			});
-		</script>
+<!-- Icons -->
+<script type="text/javascript" src="asserts/js/feather.min.js"></script>
+<script>
+	feather.replace()
+</script>
 
-	</body>
+<!-- Graphs -->
+<script type="text/javascript" src="asserts/js/Chart.min.js"></script>
+
+<script>
+	function checkID() {
+		var id = document.getElementById("goodsID").value;
+		var spanNode = document.getElementById("idSpan");
+		var reg = /^\d{4,10}$/;
+		if(reg.test(id)){
+			spanNode.innerHTML = "";
+			return true;
+		}else{
+			spanNode.innerHTML = "4-10位的数字".fontcolor("red");
+			return false;
+		}
+	}
+	function checkName() {
+		var name = document.getElementById("goodsName").value;
+		var spanNode = document.getElementById("nameSpan");
+		var reg = /^[\u4E00-\u9FA5A-Za-z0-9]{4,20}$/;
+		if(reg.test(name)){
+			spanNode.innerHTML = "";
+			return true;
+		}else{
+			spanNode.innerHTML = "中文、英文、数字但不包括下划线等符号且长度在4-20之间".fontcolor("red");
+			return false;
+		}
+	}
+	function checkCategory() {
+		var category = document.getElementById("category").value;
+		var spanNode = document.getElementById("categorySpan");
+		var reg = /[\u4e00-\u9fa5]/;
+		if(reg.test(category)){
+			spanNode.innerHTML = "";
+			return true;
+		}else{
+			spanNode.innerHTML = "中文字符".fontcolor("red");
+			return false;
+		}
+	}
+	function checkPrice() {
+		var price = document.getElementById("price").value;
+		var spanNode = document.getElementById("priceSpan");
+		var reg = /^\d+(\.\d+)?$/;
+		if(reg.test(price)){
+			spanNode.innerHTML = "";
+			return true;
+		}else{
+			spanNode.innerHTML = "非负浮点数".fontcolor("red");
+			return false;
+		}
+	}
+	function checkStock() {
+		var stock = document.getElementById("stock").value;
+		var spanNode = document.getElementById("stockSpan");
+		var reg = /^\d+$/;
+		if(reg.test(stock)){
+			spanNode.innerHTML = "";
+			return true;
+		}else{
+			spanNode.innerHTML = "非负整数".fontcolor("red");
+			return false;
+		}
+	}
+	function checkAll() {
+		var id = checkID();
+		var name = checkName();
+		var category = checkCategory();
+		var price = checkPrice();
+		var stock = checkStock();
+		if(id&&name&&category&&price&&stock){
+			return true;
+		}else{
+			return false;
+		}
+	}
+</script>
+</body>
 
 </html>
