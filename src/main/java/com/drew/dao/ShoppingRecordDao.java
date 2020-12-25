@@ -11,8 +11,8 @@ public interface ShoppingRecordDao {
     @Select("select　* from shoppingrecord where cusID=#{cusID} and goodsID=#{goodsID} and time=#{time}")
     ShoppingRecord getShoppingRecord(@Param("cusID") String cusID,@Param("goodsID")String goodsID, @Param("time") String time);
 
-    @Insert("insert into shoppingrecord(cusID,goodsID,goodsName,image,time,status,price,amounts) values(#{cusID},#{goodsID},#{goodsName},#{iamge},#{time},#{status},#{price},#{amounts})")
-    void addShoppingRecord(@Param("cusID")String cusID,@Param("goodsID")String goodsID,@Param("goodsName")String goodsName,@Param("iamge")String iamge,@Param("time")String time,@Param("status")String status,@Param("price")float price,@Param("amounts")int amounts);
+    @Insert("insert into shoppingrecord(cusID,goodsID,goodsName,time,status,price,amounts) values(#{cusID},#{goodsID},#{goodsName},#{time},#{status},#{price},#{amounts})")
+    void addShoppingRecord(@Param("cusID")String cusID,@Param("goodsID")String goodsID,@Param("goodsName")String goodsName,@Param("time")String time,@Param("status")String status,@Param("price")float price,@Param("amounts")int amounts);
 
     @Delete("delete from shoppingrecord where cusID=#{cusID} and goodsID=#{goodsID}")
     boolean deleteShoppingRecord(@Param("cusID") String cusID,@Param("goodsID") String goodsID);

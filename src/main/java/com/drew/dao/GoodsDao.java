@@ -33,4 +33,7 @@ public interface GoodsDao {
 
     @Update("update goods set stock=#{stock} where goodsID=#{goodsID}")
     boolean updateStockByID(@Param("goodsID") String goodsID,@Param("stock") int stock);
+
+    @Select("select * from goods where goodsName=#{goodsName}")
+    Goods findGoodsByName(@Param("goodsName") String goodsName);
 }

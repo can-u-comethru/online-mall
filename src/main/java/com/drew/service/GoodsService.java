@@ -63,4 +63,6 @@ public class GoodsService {
         List<Goods> items=goodsDao.findAllGoods();
         return items.size();
     }
+
+    public Goods findGoodsByName(String goodsName){ return goodsDao.findGoodsByName(goodsName);}
 }

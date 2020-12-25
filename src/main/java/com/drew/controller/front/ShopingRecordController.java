@@ -24,19 +24,9 @@ public class ShopingRecordController {
     @Resource
     private ShoppingRecordService shoppingRecordService;
 
-    @RequestMapping(value = "/shopping_record")
-    public String shopping_record(){
-        return "shopping_record";
-    }
-
-    @RequestMapping(value = "/shopping_handle")
-    public String shopping_handle(){
-        return "shopping_handle";
-    }
-
-    @RequestMapping(value = "/addShoppingRecord")
+    @RequestMapping(value = "/addShoppingRecord", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String,Object> addShoppingRecord(String cusID, String goodsID,String goodsName,String iamge,String time,String status,float price,int amounts){
+    public Map<String,Object> addShoppingRecord(String cusID, String goodsID,String goodsName,String time,String status,float price,int amounts){
         System.out.println("我添加了"+cusID+" "+goodsID);
         String result;
         Goods goods = goodsService.findGoodsByID(cusID);
@@ -52,7 +42,7 @@ public class ShopingRecordController {
             shoppingRecord.setTime(sf.format(date));
             goods.setStock(goods.getStock()-amounts);
             goodsService.updateGoodsByID(goods);
-            shoppingRecordService.addShoppingRecord(cusID, goodsID, goodsName, iamge, time, status, price, amounts);
+            shoppingRecordService.addShoppingRecord(cusID, goodsID, goodsName, time, status, price, amounts);
             result = "success";
         }
         else{
@@ -63,7 +53,7 @@ public class ShopingRecordController {
         return resultMap;
     }
 
-    @RequestMapping(value = "/changeShoppingRecord")
+    @RequestMapping(value = "/changeShoppingRecord", method = RequestMethod.POST)
     @ResponseBody
     public Map<String,Object> changeShoppingRecord(String cusID,String goodsID,String time,String status){
         System.out.println("我接收了"+cusID+" "+goodsID+" "+time+" "+status);
@@ -78,7 +68,7 @@ public class ShopingRecordController {
         return resultMap;
     }
 
-    @RequestMapping(value = "/getShoppingRecords")
+    @RequestMapping(value = "/getShoppingRecords", method = RequestMethod.POST)
     @ResponseBody
     public Map<String,Object> getShoppingRecords(String cusID){
         List<ShoppingRecord> shoppingRecordList = shoppingRecordService.getShoppingRecords(cusID);
@@ -88,7 +78,7 @@ public class ShopingRecordController {
         return resultMap;
     }
 
-    @RequestMapping(value = "/getShoppingRecordsByOrderStatus")
+    @RequestMapping(value = "/getShoppingRecordsByOrderStatus", method = RequestMethod.POST)
     @ResponseBody
     public Map<String,Object> getShoppingRecordsByOrderStatus(String status){
         List<ShoppingRecord> shoppingRecordList = shoppingRecordService.getShoppingRecordsByOrderStatus(status);
@@ -98,7 +88,7 @@ public class ShopingRecordController {
         return resultMap;
     }
 
-    @RequestMapping(value = "/getAllShoppingRecords")
+    @RequestMapping(value = "/getAllShoppingRecords", method = RequestMethod.POST)
     @ResponseBody
     public Map<String,Object> getAllShoppingRecords(){
         List<ShoppingRecord> shoppingRecordList = shoppingRecordService.getAllShoppingRecords();
@@ -108,7 +98,7 @@ public class ShopingRecordController {
         return resultMap;
     }
 
-    @RequestMapping(value = "/getUserProductRecord")
+    @RequestMapping(value = "/getUserProductRecord", method = RequestMethod.POST)
     @ResponseBody
     public Map<String,Object> getUserProductRecord(String cusID,String goodsID){
         String result = "false";

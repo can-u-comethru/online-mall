@@ -1,58 +1,50 @@
 package com.drew.controller.front;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.drew.pojo.Customer;
 import com.drew.service.CustomerService;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
+@Controller
 public class CustomUserController {
     @Resource
     CustomerService customerService;
 
-    @Resource
-    Customer customer;
-
     @RequestMapping(value = "/user/register")
     public String register() {
-        return "register";
+        return "user/register";
     }
 
     @RequestMapping(value = "/user/amend_info")
     public String amend_info() {
-        return "amend_info";
+        return "user/amend_info";
     }
 
     @RequestMapping(value = "/user/login")
     public String login() {
-        return "login";
+        return "user/login";
     }
 
-    @RequestMapping(value = "/user/main")
+    @RequestMapping(value = "/user/main.html")
     public String main() {
-        return "main";
+        return "user/main";
     }
 
-    @RequestMapping(value = "/user/control")
-    public String control() {
-        return "control";
-    }
-
-    @RequestMapping(value = "/user/doLogin")
+    @RequestMapping(value = "/user/doLogin", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> customerLogin(String cusID, String cusPwd, HttpSession httpSession) {
         System.out.println("我接收到了登录请求" + cusID + " " + cusPwd);
         String result = "fail";
         Customer customer = customerService.findCustomerByID(cusID);
         if (customer == null) {
-            result = "用户不存在！";
+            result = "unexist";
         } else {
             Customer customer1 = customerService.findCustomerByID(cusID);
             if (customer1.getCusPwd().equals(cusPwd)) {
@@ -67,7 +59,7 @@ public class CustomUserController {
         return resultMap;
     }
 
-    @RequestMapping(value = "/user/doRegister")
+    @RequestMapping(value = "/user/doRegister", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> doRegister(String cusName, String cusPwd, String cusEmail, String cusTel, String cusAddress) {
 
@@ -99,7 +91,7 @@ public class CustomUserController {
         return resultMap;
     }
 
-    @RequestMapping(value = "/UpdateInfo")
+    @RequestMapping(value = "/user/doUpdate", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> doUpdate(String cusName, String cusPwd, String cusEmail, String cusTel, String cusAddress) {
         String result;
@@ -108,7 +100,6 @@ public class CustomUserController {
             result = "fail";
         }
         else {
-            customer1.setCusName(cusName);
             customer1.setCusEmail(cusEmail);
             customer1.setCusAddress(cusAddress);
             customer1.setCusPwd(cusPwd);
@@ -124,7 +115,7 @@ public class CustomUserController {
     @RequestMapping(value = "/user/doLogout")
     public String doLogout(HttpSession httpSession){
         httpSession.setAttribute("currentUser","");
-        return "redirect:login";
+        return "redirect: /user/login.html";
     }
 
     @RequestMapping(value = "/getCustomerById")
@@ -137,7 +128,18 @@ public class CustomUserController {
         return resultMap;
     }
 
-    @RequestMapping(value = "/chargeBalance")
+    @RequestMapping(value = "/getUserAddressAndPhoneNumber", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> getUserAddressAndPhoneNumber(String cusID) {
+        String address = customerService.findCustomerByID(cusID).getCusAddress();
+        String phoneNumber = customerService.findCustomerByID(cusID).getCusTel();
+        Map<String,Object> resultMap = new HashMap<String,Object>();
+        resultMap.put("address",address);
+        resultMap.put("phoneNumber",phoneNumber);
+        return resultMap;
+    }
+
+    @RequestMapping(value = "/chargeBalance", method = RequestMethod.POST)
     @ResponseBody
     public Map<String,Object> updateBalance(String cusID,float Balance){
         String result;

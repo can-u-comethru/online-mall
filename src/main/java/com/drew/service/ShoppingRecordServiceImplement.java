@@ -18,8 +18,8 @@ public class ShoppingRecordServiceImplement implements ShoppingRecordService{
     }
 
     @Override
-    public void addShoppingRecord(String cusID, String goodsID,String goodsName,String iamge,String time,String status,float price,int amounts) {
-        shoppingRecordDao.addShoppingRecord(cusID,goodsID,goodsName,iamge,time,status,price,amounts);
+    public void addShoppingRecord(String cusID, String goodsID,String goodsName,String time,String status,float price,int amounts) {
+        shoppingRecordDao.addShoppingRecord(cusID,goodsID,goodsName,time,status,price,amounts);
     }
 
     @Override

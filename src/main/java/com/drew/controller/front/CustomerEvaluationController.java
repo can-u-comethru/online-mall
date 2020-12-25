@@ -26,10 +26,10 @@ public class CustomerEvaluationController {
     @Resource
     private ShoppingRecordService shoppingRecordService;
 
-    @RequestMapping(value = "/evaluation")
-    public String findAllEvaluation(){return "evaluation";}
+    @RequestMapping(value = "/user/shopping_record")
+    public String findAllEvaluation(){return "user/shopping_record";}
 
-    @RequestMapping(value = "/addEvaluation")
+    @RequestMapping(value = "/addEvaluation", method = RequestMethod.POST)
     @ResponseBody
     public Map<String,Object> addEvaluation(String evaluationID,String cusID, String goodsID, String commentary){
         System.out.println("我添加了"+cusID+" "+goodsID);
@@ -54,7 +54,7 @@ public class CustomerEvaluationController {
         return resultMap;
     }
 
-    @RequestMapping(value = "/findEvaluationByID")
+    @RequestMapping(value = "/findEvaluationByID", method = RequestMethod.POST)
     @ResponseBody
     public Map<String,Object> findEvaluationByID(String goodsID){
         List<Evaluation> evaluationList = (List<Evaluation>) evaluationService.findEvaluationByID(goodsID);
@@ -64,7 +64,7 @@ public class CustomerEvaluationController {
         return resultMap;
     }
 
-    @RequestMapping(value = "/updateEvaluationByID")
+    @RequestMapping(value = "/updateEvaluationByID", method = RequestMethod.POST)
     @ResponseBody
     public Map<String,Object> updateEvaluationByID(String evaluationID,String commentary){
         Evaluation evaluation=evaluationService.findEvaluationByID(evaluationID);
@@ -78,7 +78,7 @@ public class CustomerEvaluationController {
         return resultMap;
     }
 
-    @RequestMapping(value = "/deleteEvaluationByID")
+    @RequestMapping(value = "/deleteEvaluationByID", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> deleteCartByID(String evaluationID) {
         evaluationService.deleteEvaluationByID(evaluationID);

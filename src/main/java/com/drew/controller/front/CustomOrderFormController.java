@@ -19,10 +19,10 @@ public class CustomOrderFormController {
     @Resource
     OrderFormService orderFormService;
 
-    @RequestMapping(value = "/OrderForm")
-    public String findAllOrderForm(){return "OrderForm";}
+    @RequestMapping(value = "/user/shopping_handle")
+    public String findAllOrderForm(){return "user/shopping_handle";}
 
-    @RequestMapping(value = "/findOrderFormByID")
+    @RequestMapping(value = "/findOrderFormByID", method = RequestMethod.POST)
     @ResponseBody
     public Map<String,Object> findOrderFormByID(String oderFormID){
         if(!orderFormService.isOrderFormExist(oderFormID)){
@@ -39,7 +39,7 @@ public class CustomOrderFormController {
         }
     }
 
-    @RequestMapping(value = "/addOrderForm")
+    @RequestMapping(value = "/addOrderForm", method = RequestMethod.POST)
     @ResponseBody
     public Map<String,Object> addOrderForm(OrderForm orderForm){
             System.out.println("您的订单生成中，请稍候...");
@@ -56,7 +56,7 @@ public class CustomOrderFormController {
             return resultMap;
     }
 
-    @RequestMapping(value = "/deleteOrderFormByID")
+    @RequestMapping(value = "/deleteOrderFormByID", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> deleteOrderFormByID(String orderFormID) {
         orderFormService.deleteOrderFormByID(orderFormID);

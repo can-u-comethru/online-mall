@@ -7,7 +7,7 @@ import java.util.List;
 public interface ShoppingRecordService {
     ShoppingRecord getShoppingRecord(String cusID, String goodsID,String time);
 
-    void addShoppingRecord(String cusID, String goodsID,String goodsName,String iamge,String time,String status,float price,int amounts);
+    void addShoppingRecord(String cusID, String goodsID,String goodsName,String time,String status,float price,int amounts);
 
     boolean deleteShoppingRecord(String cusID,String goodsID);
 
