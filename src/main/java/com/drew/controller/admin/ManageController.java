@@ -76,8 +76,17 @@ public class ManageController {
     public String judge3(@PathParam("adminID") String adminID, @PathParam("adminNow_ID") String adminNow_ID, Model model){
         Admin adminNow=adminService.findAdminByID(adminNow_ID);
         if(adminNow.getSupervisor().equals("is")){
-            adminService.deleteAdminByID(adminID);
-            return "redirect:/admin/list";
+            if(adminService.findAdminByID(adminID).getSupervisor().equals("is")){
+                model.addAttribute("msg","超级管理员不可被删除！");
+                List<Admin> admins=adminService.findAllAdmin();
+                model.addAttribute("admins",admins);
+                return "admin/list";
+            }
+            else {
+                adminService.deleteAdminByID(adminID);
+                return "redirect:/admin/list";
+            }
+
         }
         else{
             model.addAttribute("msg","您不是超级管理员！");
