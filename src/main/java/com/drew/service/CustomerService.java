@@ -25,7 +25,7 @@ public class CustomerService {
     public Customer findCustomerByEmail(String cusEmail){ return customerDao.findCustomerByEmail(cusEmail);}
 
     public boolean addCustomer(Customer customer){
-        return customerDao.addCustomer(customer.getCusID(),customer.getCusName(),customer.getCusPwd(),customer.getCusTel(),customer.getCusEmail(),customer.getCusAddress(),customer.getBalance());
+        return customerDao.addCustomer(customer.getCusID(),customer.getCusName(),customer.getCusPwd(),customer.getCusEmail(),customer.getCusTel(),customer.getCusAddress(),customer.getBalance());
     }
 
     public boolean deleteCustomerByID(String cusID){
@@ -51,5 +51,12 @@ public class CustomerService {
     public int cnt(){
         List<Customer> customers=customerDao.findAllCustomer();
         return customers.size();
+    }
+
+    public boolean isCustomerExist(String cusID){
+        if(customerDao.findCustomerByID(cusID)!=null)
+            return true;
+        else
+            return false;
     }
 }

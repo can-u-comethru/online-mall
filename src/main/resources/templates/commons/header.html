@@ -36,11 +36,11 @@
                                 <li th:class="${active=='contact'?'nav-item active':'nav-item'}">
                                     <a class="nav-link" th:href="@{/user/contact}">Contact Us</a>
                                 </li>
-                                <li class="nav-item d_none login_btn">
-                                    <a class="nav-link" href="#">Login</a>
+                                <li th:class="${active=='login'?'nav-item d_none login_btn':'nav-item d_none'}">
+                                    <a class="nav-link" th:href="@{/user/login}">Login</a>
                                 </li>
-                                <li class="nav-item d_none">
-                                    <a class="nav-link" href="#">Register</a>
+                                <li th:class="${active=='register'?'nav-item d_none login_btn':'nav-item d_none'}">
+                                    <a class="nav-link" th:href="@{/user/register}">Register</a>
                                 </li>
                                 <li class="nav-item d_none sea_icon">
                                     <a class="nav-link" href="#"><i class="fa fa-shopping-bag" aria-hidden="true"></i><i class="fa fa-search" aria-hidden="true"></i></a>

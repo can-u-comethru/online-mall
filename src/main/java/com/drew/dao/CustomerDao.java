@@ -19,8 +19,8 @@ public interface CustomerDao {
     @Select("select * from customer where cusName=#{cusEmail}")
     Customer findCustomerByEmail(@Param("cusName") String cusEmail);
 
-    @Insert("insert into customer(cusID,cusName,cusPwd,cusEmail,cusTel,cusAddress，Balance) values(#{cusID},#{cusName},#{cusPwd},#{cusEmail},#{cusTel},#{cusAddress},#{Balance})")
-    boolean addCustomer(@Param("cusID") String cusID,@Param("cusName") String cusName,@Param("cusPwd") String cusPwd,@Param("cusEmail") String cusEmail,@Param("cusTel") String cusTel,@Param("cusAddress") String cusAddress,@Param("Balance") Float Balance);
+    @Insert("insert into customer(cusID,cusName,cusPwd,cusEmail,cusTel,cusAddress,balance) values(#{cusID},#{cusName},#{cusPwd},#{cusEmail},#{cusTel},#{cusAddress},#{balance})")
+    boolean addCustomer(@Param("cusID") String cusID,@Param("cusName") String cusName,@Param("cusPwd") String cusPwd,@Param("cusEmail") String cusEmail,@Param("cusTel") String cusTel,@Param("cusAddress") String cusAddress,@Param("balance") Float balance);
 
     @Update("update customer set cusName=#{cusName},cusPwd=#{cusPwd},cusEmail=#{cusEmail},cusTel=#{cusTel},cusAddress=#{cusAddress},Balance=#{Balance} where cusID=#{cusID}")
     boolean updateCustomerByID(@Param("cusID") String cusID,@Param("cusName") String cusName,@Param("cusPwd") String cusPwd,@Param("cusEmail") String cusEmail,@Param("cusTel") String cusTel,@Param("cusAddress") String cusAddress,@Param("Balance")Float Balance);
