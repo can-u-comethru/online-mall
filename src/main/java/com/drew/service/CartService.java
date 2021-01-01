@@ -16,27 +16,23 @@ public class CartService {
         return cartDao.findAllCart(cusID);
     }
 
-    public Cart findCartByID(String cusID){
-        return cartDao.findCartByID(cusID);
-    }
-
-    public boolean isCartExist(String cusID){
-        if(cartDao.findCartByID(cusID)!=null) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public boolean addCart(Cart cart){
-        return cartDao.addCart(cart.getGoodsID(),cart.getAmount());
+        return cartDao.addCart(cart.getCartID(),cart.getCusID(),cart.getGoodsID(),cart.getGoodsName(),cart.getPrice(),cart.getAmount(),cart.getTotal());
     }
 
-    public boolean deleteCartByID(Cart cart){
-        return cartDao.deleteCartByID(cart.getCusID(),cart.getGoodsID());
+    public boolean updateCartByID(String cartID,int amount,float total){
+        return cartDao.updateCartByID(cartID,amount,total);
     }
 
-    public boolean updateCartByID(Cart cart){
-        return cartDao.updateCartByID(cart.getGoodsID(),cart.getAmount());
+    public boolean updateByID(String cartID){
+        return cartDao.updateByID(cartID);
+    }
+
+    public boolean deleteCartByID(String cartID){
+        return cartDao.deleteCartByID(cartID);
+    }
+
+    public Cart findCartByID(String cartID){
+        return cartDao.findCartByID(cartID);
     }
 }

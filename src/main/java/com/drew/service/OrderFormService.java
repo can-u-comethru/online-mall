@@ -5,6 +5,7 @@ import com.drew.pojo.OrderForm;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -24,8 +25,8 @@ public class OrderFormService {
         return orderFormDao.findOrderFormByID(orderFormID) != null;
     }
 
-    public boolean addOrderForm(OrderForm orderForm){
-        return orderFormDao.addOrderForm(orderForm.getOrderFormID(),orderForm.getCusID(),orderForm.getGoodsID(),orderForm.getAmount(),orderForm.getStatus(),orderForm.getOrderFormDate());
+    public boolean addOrderForm(String orderFormID, String cusID, String goodsID, int amount, Date orderFormDate){
+        return orderFormDao.addOrderForm(orderFormID, cusID, goodsID, amount, orderFormDate);
     }
 
     public boolean deleteOrderFormByID(String orderFormID){

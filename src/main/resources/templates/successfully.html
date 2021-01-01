@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>sungla</title>
+    <!-- bootstrap css -->
+    <link rel="stylesheet" th:href="@{/css/bootstraps.min.css}">
+    <!-- style css -->
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <!-- Responsive-->
+    <link rel="stylesheet" th:href="@{/css/responsive.css}">
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/jquery.mCustomScrollbar.min.css}">
+    <!-- Tweaks for older IEs-->
+    <link rel="stylesheet" th:href="@{/css/font-awesome.css}">
+    <link rel="stylesheet" th:href="@{/css/jquery.fancybox.min.css}" media="screen">
+</head>
+<body>
+<div class="card text-center">
+    <div class="card-header">
+        尊敬的[[${session.userNow}]]
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">感谢！</h5>
+        <img th:src="@{/img/logo.png}">
+        <p class="card-text">您对Sungla的关顾</p>
+        <a th:href="@{/user/index}" class="btn btn-primary">返回首页</a>
+    </div>
+    <div class="card-footer text-muted">
+        Copyright &copy; 2020.Sungla All rights reserved.
+    </div>
+</div>
+</body>
+</html>

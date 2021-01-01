@@ -1,19 +1,35 @@
 package com.drew.controller.front;
 
+import com.drew.pojo.Cart;
 import com.drew.pojo.Customer;
+import com.drew.pojo.OrderForm;
+import com.drew.service.CartService;
 import com.drew.service.CustomerService;
+import com.drew.service.OrderFormService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
+import javax.websocket.server.PathParam;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 @Controller
 public class ShopController {
     @Resource
     CustomerService customerService;
+
+    @Resource
+    CartService cartService;
+
+    @Resource
+    OrderFormService orderFormService;
 
     @RequestMapping("/user/shop")
     public String shop(){
@@ -30,9 +46,18 @@ public class ShopController {
         return "user/glasses";
     }
 
-    @RequestMapping("/user/contact")
-    public String contact(){
-        return "user/contact";
+    @RequestMapping("/user/cart")
+    public String contact(Model model,HttpSession session){
+        String cusName=(String)session.getAttribute("userNow");
+        String cusID=customerService.getCusIDByName(cusName);
+        List<Cart> carts=cartService.findAllCart(cusID);
+        float total_=0;
+        for (Cart cart:carts) {
+            total_+=cart.getTotal();
+        }
+        model.addAttribute("carts",carts);
+        model.addAttribute("total_",total_);
+        return "user/cart";
     }
 
     @RequestMapping("/user/about")
@@ -51,11 +76,12 @@ public class ShopController {
     }
 
     @RequestMapping("/user/login_")
-    public String login_(@Param("cusID") String cusID, @Param("cusPwd") String cusPwd, Model model){
+    public String login_(@Param("cusID") String cusID, @Param("cusPwd") String cusPwd, Model model, HttpSession session){
         List<Customer> customers=customerService.findAllCustomer();
         for(Customer customer:customers){
             if(customer.getCusID().equals(cusID)&&customer.getCusPwd().equals(cusPwd)){
-                return "/user/index";
+                session.setAttribute("userNow",customerService.getCusNameByID(cusID));
+                return "redirect:/user/index.html";
             }
         }
         model.addAttribute("msg","输入的账户或密码有误，请重试！");
@@ -73,5 +99,44 @@ public class ShopController {
             model.addAttribute("msg","注册失败，用户已存在！");
             return "/user/register";
         }
+    }
+
+    @RequestMapping("/user/inc")
+    public String inc(@PathParam("cartID") String cartID){
+        cartService.updateCartByID(cartID,cartService.findCartByID(cartID).getAmount()+1,cartService.findCartByID(cartID).getTotal()+cartService.findCartByID(cartID).getPrice());
+        return "redirect:/user/cart";
+    }
+
+    @RequestMapping("/user/dec")
+    public String dec(@PathParam("cartID") String cartID){
+        cartService.updateCartByID(cartID,cartService.findCartByID(cartID).getAmount()-1,cartService.findCartByID(cartID).getTotal()-cartService.findCartByID(cartID).getPrice());
+        return "redirect:/user/cart";
+    }
+
+    @RequestMapping("/user/delete")
+    public String delete(@PathParam("cartID") String cartID){
+        cartService.deleteCartByID(cartID);
+        return "redirect:/user/cart";
+    }
+
+    @RequestMapping("/user/submit")
+    public String submit(@PathParam("cusName") String cusName){
+        Random random=new Random();
+        int num=random.nextInt(999998999)+1000;
+        String ID=Integer.toString(num);
+        Date date=new Date();
+        String cusID=customerService.getCusIDByName(cusName);
+        List<Cart> carts=cartService.findAllCart(cusID);
+        for (Cart cart:carts) {
+            orderFormService.addOrderForm(ID,cusID,cart.getGoodsID(),cart.getAmount(),date);
+            cartService.updateByID(cart.getCartID());
+        }
+        return "successfully";
+    }
+
+    @RequestMapping("/user/logout")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "/user/index";
     }
 }

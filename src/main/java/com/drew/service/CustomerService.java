@@ -40,6 +40,10 @@ public class CustomerService {
         return customerDao.getCusNameByID(cusID);
     }
 
+    public String getCusIDByName(String cusName){
+        return customerDao.getCusIDByName(cusName);
+    }
+
     public boolean updateBalanceByID(String cusID,float balance){
         return customerDao.updateBalanceByID(cusID,balance);
     }
