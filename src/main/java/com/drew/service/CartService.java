@@ -16,8 +16,8 @@ public class CartService {
         return cartDao.findAllCart(cusID);
     }
 
-    public boolean addCart(Cart cart){
-        return cartDao.addCart(cart.getCartID(),cart.getCusID(),cart.getGoodsID(),cart.getGoodsName(),cart.getPrice(),cart.getAmount(),cart.getTotal());
+    public boolean addCart(String cartID,String cusID,String goodsID,String goodsName,float price,int amount,float total){
+        return cartDao.addCart(cartID,cusID,goodsID,goodsName,price,amount,total);
     }
 
     public boolean updateCartByID(String cartID,int amount,float total){

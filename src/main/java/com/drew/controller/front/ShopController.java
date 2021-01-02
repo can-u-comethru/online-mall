@@ -2,9 +2,11 @@ package com.drew.controller.front;
 
 import com.drew.pojo.Cart;
 import com.drew.pojo.Customer;
+import com.drew.pojo.Goods;
 import com.drew.pojo.OrderForm;
 import com.drew.service.CartService;
 import com.drew.service.CustomerService;
+import com.drew.service.GoodsService;
 import com.drew.service.OrderFormService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
@@ -31,6 +33,9 @@ public class ShopController {
     @Resource
     OrderFormService orderFormService;
 
+    @Resource
+    GoodsService goodsService;
+
     @RequestMapping("/user/shop")
     public String shop(){
         return "user/shop";
@@ -42,7 +47,9 @@ public class ShopController {
     }
 
     @RequestMapping("/user/glasses")
-    public String glasses(){
+    public String glasses(Model model){
+        List<Goods> items=goodsService.findAllGoods();
+        model.addAttribute("items",items);
         return "user/glasses";
     }
 
@@ -103,14 +110,26 @@ public class ShopController {
 
     @RequestMapping("/user/inc")
     public String inc(@PathParam("cartID") String cartID){
-        cartService.updateCartByID(cartID,cartService.findCartByID(cartID).getAmount()+1,cartService.findCartByID(cartID).getTotal()+cartService.findCartByID(cartID).getPrice());
-        return "redirect:/user/cart";
+        Cart cart=cartService.findCartByID(cartID);
+        if(cart.getAmount()+1<=goodsService.getStockByID(cart.getGoodsID())){
+            cartService.updateCartByID(cartID,cart.getAmount()+1,cart.getTotal()+cart.getPrice());
+            return "redirect:/user/cart";
+        }
+        else {
+            return "redirect:/user/cart";
+        }
     }
 
     @RequestMapping("/user/dec")
     public String dec(@PathParam("cartID") String cartID){
-        cartService.updateCartByID(cartID,cartService.findCartByID(cartID).getAmount()-1,cartService.findCartByID(cartID).getTotal()-cartService.findCartByID(cartID).getPrice());
-        return "redirect:/user/cart";
+        Cart cart=cartService.findCartByID(cartID);
+        if(cart.getAmount()-1>=1){
+            cartService.updateCartByID(cartID,cart.getAmount()-1,cart.getTotal()-cart.getPrice());
+            return "redirect:/user/cart";
+        }
+        else {
+            return "redirect:/user/cart";
+        }
     }
 
     @RequestMapping("/user/delete")
@@ -120,23 +139,50 @@ public class ShopController {
     }
 
     @RequestMapping("/user/submit")
-    public String submit(@PathParam("cusName") String cusName){
-        Random random=new Random();
-        int num=random.nextInt(999998999)+1000;
-        String ID=Integer.toString(num);
-        Date date=new Date();
+    public String submit(@PathParam("cusName") String cusName,@PathParam("total") float total,Model model,HttpSession session){
         String cusID=customerService.getCusIDByName(cusName);
-        List<Cart> carts=cartService.findAllCart(cusID);
-        for (Cart cart:carts) {
-            orderFormService.addOrderForm(ID,cusID,cart.getGoodsID(),cart.getAmount(),date);
-            cartService.updateByID(cart.getCartID());
+        if(total<=customerService.getBalanceByID(cusID)){
+            Random random=new Random();
+            int num=random.nextInt(999998999)+1000;
+            String ID=Integer.toString(num);
+            Date date=new Date();
+            List<Cart> carts=cartService.findAllCart(cusID);
+            for (Cart cart:carts) {
+                orderFormService.addOrderForm(ID,cusID,cart.getGoodsID(),cart.getAmount(),date);
+                cartService.updateByID(cart.getCartID());
+            }
+            customerService.updateBalanceByID(cusID,customerService.getBalanceByID(cusID)-total);
+            return "successfully";
         }
-        return "successfully";
+        else{
+            model.addAttribute("msg","账户余额不足，请先充值！");
+            String cusName1=(String)session.getAttribute("userNow");
+            String cusID1=customerService.getCusIDByName(cusName1);
+            List<Cart> carts=cartService.findAllCart(cusID1);
+            float total_=0;
+            for (Cart cart:carts) {
+                total_+=cart.getTotal();
+            }
+            model.addAttribute("carts",carts);
+            model.addAttribute("total_",total_);
+            return "/user/cart";
+        }
     }
 
     @RequestMapping("/user/logout")
     public String logout(HttpSession session){
         session.invalidate();
         return "/user/index";
+    }
+
+    @RequestMapping("/user/add")
+    public String add(@PathParam("goodsID") String goodsID,HttpSession session){
+        Goods goods=goodsService.findGoodsByID(goodsID);
+        Random random=new Random();
+        int num=random.nextInt(999998999)+1000;
+        String ID=Integer.toString(num);
+        String cusID=customerService.getCusIDByName((String)session.getAttribute("userNow"));
+        cartService.addCart(ID,cusID,goodsID,goods.getGoodsName(),goods.getPrice(),1,goods.getPrice());
+        return "/purchase";
     }
 }

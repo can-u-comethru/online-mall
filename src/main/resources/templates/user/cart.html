@@ -23,6 +23,7 @@
       <!-- contact section -->
       <div id="contact" class="contact">
          <div class="container">
+            <p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
             <table class="table table-hover">
                <thead>
                <tr>
@@ -55,7 +56,7 @@
                </tr>
                </tbody>
             </table>
-            <a th:href="@{/user/submit(cusName=${session.userNow})}" type="button" class="btn btn-outline-dark">[[${total_}]]</a>
+            <a th:href="@{/user/submit(cusName=${session.userNow},total=${total_})}" type="button" class="btn btn-outline-dark">提交订单[[${total_}]]</a>
          </div>
       </div>
       </div>
