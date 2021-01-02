@@ -33,7 +33,7 @@ public class CustomerService {
     }
 
     public boolean editCustomerByID(Customer customer){
-        return customerDao.updateCustomerByID(customer.getCusID(),customer.getCusName(),customer.getCusPwd(),customer.getCusTel(),customer.getCusEmail(),customer.getCusAddress(),customer.getBalance());
+        return customerDao.updateCustomerByID(customer.getCusID(),customer.getCusName(),customer.getCusPwd(),customer.getCusEmail(),customer.getCusTel(),customer.getCusAddress(),customer.getBalance());
     }
 
     public String getCusNameByID(String cusID){

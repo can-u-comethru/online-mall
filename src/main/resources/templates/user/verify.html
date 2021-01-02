@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>sungla</title>
+    <!-- bootstrap css -->
+    <link rel="stylesheet" th:href="@{/css/bootstraps.min.css}">
+    <!-- style css -->
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <!-- Responsive-->
+    <link rel="stylesheet" th:href="@{/css/responsive.css}">
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/jquery.mCustomScrollbar.min.css}">
+    <!-- Tweaks for older IEs-->
+    <link rel="stylesheet" th:href="@{/css/font-awesome.css}">
+    <link rel="stylesheet" th:href="@{/css/jquery.fancybox.min.css}" media="screen">
+</head>
+<body>
+<div style="margin-left: 30%;margin-top: 10%">
+    <h3 style="font-family:FangSong">尊敬的 [[${session.userNow}]] ，您好！</h3>
+    <form class="form-inline" th:action="@{/user/verify_}">
+        <div class="form-group mb-2">
+            我们需要进行一个简短的验证
+        </div>
+        <div class="form-group mx-sm-3 mb-2">
+            <label for="cusPwd" class="sr-only">Password</label>
+            <input type="password" class="form-control" id="cusPwd" name="cusPwd" placeholder="Password">
+        </div>
+        <button type="submit" class="btn btn-outline-dark mb-2">Confirm identity</button>
+        <p th:text="${msg}" th:if="${not #strings.isEmpty(msg)}" style="margin-left: 10px"></p>
+    </form>
+    <a th:href="@{/user/index}" class="card-link" style="float: left;margin-right: 20px"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-backspace-fill" viewBox="0 0 16 16">
+        <path d="M15.683 3a2 2 0 0 0-2-2h-7.08a2 2 0 0 0-1.519.698L.241 7.35a1 1 0 0 0 0 1.302l4.843 5.65A2 2 0 0 0 6.603 15h7.08a2 2 0 0 0 2-2V3zM5.829 5.854a.5.5 0 1 1 .707-.708l2.147 2.147 2.146-2.147a.5.5 0 1 1 .707.708L9.39 8l2.146 2.146a.5.5 0 0 1-.707.708L8.683 8.707l-2.147 2.147a.5.5 0 0 1-.707-.708L7.976 8 5.829 5.854z"/>
+    </svg>返回</a>
+    <div th:if="${msg} eq 'verified'">
+        <a th:href="@{/user/edit}" class="card-link"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
+            <path d="M13.498.795l.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
+        </svg>修改信息</a>
+        <a th:href="@{/user/recharge}" class="card-link"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-credit-card-fill" viewBox="0 0 16 16">
+            <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1H0V4zm0 3v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7H0zm3 2h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1z"/>
+        </svg>充值</a>
+    </div>
+</div>
+</body>
+</html>

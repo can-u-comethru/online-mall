@@ -185,4 +185,54 @@ public class ShopController {
         cartService.addCart(ID,cusID,goodsID,goods.getGoodsName(),goods.getPrice(),1,goods.getPrice());
         return "/purchase";
     }
+
+    @RequestMapping("/user/verify")
+    public String verify(){
+        return "/user/verify";
+    }
+
+    @RequestMapping("/user/verify_")
+    public String verify_(HttpSession session,String cusPwd,Model model){
+        Customer customer=customerService.findCustomerByID(customerService.getCusIDByName((String)session.getAttribute("userNow")));
+        if(customer.getCusPwd().equals(cusPwd)){
+            model.addAttribute("msg","verified");
+            return "/user/verify";
+        }
+        else{
+            model.addAttribute("msg","failed");
+            return "/user/verify";
+        }
+    }
+
+    @RequestMapping("/user/edit")
+    public String edit(HttpSession session,Model model){
+        model.addAttribute("customer",customerService.findCustomerByID(customerService.getCusIDByName((String)session.getAttribute("userNow"))));
+        return "/user/edit";
+    }
+
+    @RequestMapping("/user/recharge")
+    public String recharge(HttpSession session,Model model){
+        model.addAttribute("customer",customerService.findCustomerByID(customerService.getCusIDByName((String)session.getAttribute("userNow"))));
+        return "/user/recharge";
+    }
+
+    @RequestMapping("/user/edit_")
+    public String edit_(Customer customer,Model model,HttpSession session){
+        customerService.editCustomerByID(customer);
+        session.invalidate();
+        model.addAttribute("msg_","成功修改信息，请重新登录！");
+        return "/user/login";
+    }
+
+    @RequestMapping("/user/recharge_")
+    public String recharge_(HttpSession session,float balance){
+        Customer customer=customerService.findCustomerByID(customerService.getCusIDByName((String)session.getAttribute("userNow")));
+        customerService.updateBalanceByID(customer.getCusID(),customer.getBalance()+balance);
+        return "thanks";
+    }
+
+    @RequestMapping("thanks")
+    public String thanks(){
+        return "thanks";
+    }
 }
