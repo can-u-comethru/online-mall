@@ -24,11 +24,12 @@
 <div class="about">
     <div class="container">
         <p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
-        <form th:action="@{/user/register_}">
+        <form th:action="@{/user/register_}" onsubmit="return checkAll()">
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="cusID">账户ID</label>
-                    <input type="text" class="form-control" id="cusID" name="cusID">
+                    <input type="text" class="form-control" id="cusID" name="cusID" onblur="checkID()">
+                    <span  style="font-size:13px" id="idSpan"></span>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="cusEmail">邮箱</label>
@@ -37,24 +38,29 @@
             </div>
             <div class="form-group">
                 <label for="cusPwd">密码</label>
-                <input type="password" class="form-control" id="cusPwd" name="cusPwd">
+                <input type="password" class="form-control" id="cusPwd" name="cusPwd" onblur="checkPwd()">
+                <span  style="font-size:13px" id="pwdSpan"></span>
             </div>
             <div class="form-group">
                 <label for="rePwd">确认密码</label>
-                <input type="password" class="form-control" id="rePwd" name="rePwd">
+                <input type="password" class="form-control" id="rePwd" name="rePwd" onblur="checkRePwd()">
+                <span  style="font-size:13px" id="rePwdSpan"></span>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="cusAddress">收货地址</label>
-                    <input type="text" class="form-control" id="cusAddress" name="cusAddress">
+                    <input type="text" class="form-control" id="cusAddress" name="cusAddress" onblur="checkAddress()">
+                    <span  style="font-size:13px" id="addressSpan"></span>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="cusTel">联系电话</label>
-                    <input type="tel" class="form-control" id="cusTel" name="cusTel">
+                    <input type="tel" class="form-control" id="cusTel" name="cusTel" onblur="checkTel()">
+                    <span  style="font-size:13px" id="telSpan"></span>
                 </div>
                 <div class="form-group col-md-2">
                     <label for="cusName">用户名</label>
-                    <input type="text" class="form-control" id="cusName" name="cusName">
+                    <input type="text" class="form-control" id="cusName" name="cusName" onblur="checkName()">
+                    <span  style="font-size:13px" id="nameSpan"></span>
                 </div>
             </div>
             <input type="hidden" name="balance" value="0">
@@ -74,4 +80,92 @@
 <!-- sidebar -->
 <script th:src="@{/js/jquery.mCustomScrollbar.concat.min.js}"></script>
 </body>
+<script>
+    function checkID() {
+        var id = document.getElementById("cusID").value;
+        var spanNode = document.getElementById("idSpan");
+        var reg = /^\d{4,10}$/;
+        if(reg.test(id)){
+            spanNode.innerHTML = "";
+            return true;
+        }else{
+            spanNode.innerHTML = "4-10位的数字".fontcolor("red");
+            return false;
+        }
+    }
+    function checkName() {
+        var name = document.getElementById("cusName").value;
+        var spanNode = document.getElementById("nameSpan");
+        var reg = /^[\u4E00-\u9FA5A-Za-z0-9]{4,10}$/;
+        if(reg.test(name)){
+            spanNode.innerHTML = "";
+            return true;
+        }else{
+            spanNode.innerHTML = "中文、英文、数字但不包括下划线等符号且长度在4-10之间".fontcolor("red");
+            return false;
+        }
+    }
+    function checkPwd() {
+        var pwd = document.getElementById("cusPwd").value;
+        var spanNode = document.getElementById("pwdSpan");
+        var reg = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,10}$/;
+        if(reg.test(pwd)){
+            spanNode.innerHTML = "";
+            return true;
+        }else{
+            spanNode.innerHTML = "必须包含大小写字母和数字的组合，可以使用特殊字符，长度在8-10之间".fontcolor("red");
+            return false;
+        }
+    }
+    function checkRePwd(){
+        var pwd=document.getElementById("cusPwd").value;
+        var rePwd=document.getElementById("rePwd").value;
+        var spanNode=document.getElementById("rePwdSpan");
+        if(pwd==rePwd){
+            spanNode.innerHTML="";
+            return true;
+        }
+        else{
+            spanNode.innerHTML="两次输入的密码不一致".fontcolor("red");
+            return false;
+        }
+    }
+    function checkTel() {
+        var tel = document.getElementById("cusTel").value;
+        var spanNode = document.getElementById("telSpan");
+        var reg = /^(13[0-9]|14[5|7]|15[0|1|2|3|4|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/;
+        if(reg.test(tel)){
+            spanNode.innerHTML = "";
+            return true;
+        }else{
+            spanNode.innerHTML = "手机号码".fontcolor("red");
+            return false;
+        }
+    }
+    function checkAddress() {
+        var address = document.getElementById("cusAddress").value;
+        var spanNode = document.getElementById("addressSpan");
+        var reg = /^[\u4E00-\u9FA5A-Za-z0-9]{10,50}$/;
+        if(reg.test(address)){
+            spanNode.innerHTML = "";
+            return true;
+        }else{
+            spanNode.innerHTML = "中文、英文、数字但不包括下划线等符号且长度在10-50之间".fontcolor("red");
+            return false;
+        }
+    }
+    function checkAll() {
+        var id=checkID();
+        var name = checkName();
+        var pwd = checkPwd();
+        var rePwd=checkRePwd();
+        var tel=checkTel();
+        var address=checkAddress();
+        if(id&&name&&pwd&&rePwd&&tel&&address){
+            return true;
+        }else{
+            return false;
+        }
+    }
+</script>
 </html>
