@@ -11,9 +11,6 @@
       <link rel="stylesheet" th:href="@{/css/responsive.css}">
       <!-- Scrollbar Custom CSS -->
       <link rel="stylesheet" th:href="@{/css/jquery.mCustomScrollbar.min.css}">
-      <!-- Tweaks for older IEs-->
-      <link rel="stylesheet" th:href="@{/css/font-awesome.css}">
-      <link rel="stylesheet" th:href="@{/css/jquery.fancybox.min.css}" media="screen">
    </head>
    <!-- body -->
    <body class="main-layout position_head">
@@ -35,7 +32,7 @@
                   <th scope="col">操作</th>
                </tr>
                </thead>
-               <tbody id="page">
+               <tbody>
                <tr th:each="cart:${carts}">
                   <td th:text="${cart.getGoodsID()}"></td>
                   <td th:text="${cart.getGoodsName()}"></td>
@@ -43,10 +40,10 @@
                   <td th:text="${cart.getAmount()}"></td>
                   <td th:text="${cart.getTotal()}"></td>
                   <td>
-                     <a th:href="@{/user/inc(cartID=${cart.getCartID()})}" type="button" class="btn btn-outline-info"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                     <a th:href="@{/user/inc(cartID=${cart.getCartID()})}" type="button" class="btn btn-outline-dark"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
                         <path d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                      </svg></a>
-                     <a th:href="@{/user/dec(cartID=${cart.getCartID()})}" type="button" class="btn btn-outline-info"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                     <a th:href="@{/user/dec(cartID=${cart.getCartID()})}" type="button" class="btn btn-outline-dark"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
                         <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
                      </svg></a>
                      <a th:href="@{/user/delete(cartID=${cart.getCartID()})}" type="button" class="btn btn-outline-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">

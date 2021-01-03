@@ -152,6 +152,7 @@ public class ShopController {
                 cartService.updateByID(cart.getCartID());
             }
             customerService.updateBalanceByID(cusID,customerService.getBalanceByID(cusID)-total);
+            model.addAttribute("orderFormID",ID);
             return "successfully";
         }
         else{
@@ -234,5 +235,24 @@ public class ShopController {
     @RequestMapping("thanks")
     public String thanks(){
         return "thanks";
+    }
+
+    @RequestMapping("/user/orders")
+    public String orders(){
+        return "/user/orders";
+    }
+
+    @RequestMapping("/user/orders_")
+    public String orders_(String orderFormID,Model model,HttpSession session){
+        String cusID=customerService.getCusIDByName((String)session.getAttribute("userNow"));
+        if(orderFormService.isOrderFormExist(orderFormID,cusID)){
+            List<OrderForm> orderForms=orderFormService.findOrdersByID(orderFormID,cusID);
+            model.addAttribute("orderForms",orderForms);
+            return "/user/orderList";
+        }
+        else {
+            model.addAttribute("msg","订单不存在！");
+            return "/user/orders";
+        }
     }
 }

@@ -11,9 +11,6 @@
     <link rel="stylesheet" th:href="@{/css/responsive.css}">
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" th:href="@{/css/jquery.mCustomScrollbar.min.css}">
-    <!-- Tweaks for older IEs-->
-    <link rel="stylesheet" th:href="@{/css/font-awesome.css}">
-    <link rel="stylesheet" th:href="@{/css/jquery.fancybox.min.css}" media="screen">
 </head>
 <body>
 <div class="card text-center">
@@ -21,10 +18,11 @@
         尊敬的[[${session.userNow}]]
     </div>
     <div class="card-body">
-        <h5 class="card-title">感谢！</h5>
         <img th:src="@{/img/logo.png}">
+        <h5 class="card-title">感谢！</h5>
         <p class="card-text">您对Sungla的关顾</p>
-        <a th:href="@{/user/index}" class="btn btn-primary">返回首页</a>
+        <p class="card-text">您本次的订单号：[[${orderFormID}]]</p>
+        <a th:href="@{/user/index}" class="btn btn-outline-dark">返回首页</a>
     </div>
     <div class="card-footer text-muted">
         Copyright &copy; 2020.Sungla All rights reserved.

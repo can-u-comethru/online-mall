@@ -37,12 +37,28 @@
 <!-- about section -->
 <div class="about">
     <div class="container">
-        <form class="form-inline" th:action="@{/user/recharge_}" onsubmit="return checkBalance()">
-            <label class="my-1 mr-2" for="balance">您要充值的金额</label>
-            <input type="text" class="form-control" id="balance" name="balance" onblur="checkBalance()">
-            <button type="submit" class="btn btn-outline-dark my-1">充值</button>
-        </form>
-        <span  style="font-size:13px" id="balanceSpan"></span>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">订单编号</th>
+                <th scope="col">商品编号</th>
+                <th scope="col">数量</th>
+                <th scope="col">提交日期</th>
+                <th scope="col">状态</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="orderForm:${orderForms}">
+                <td th:text="${orderForm.getOrderFormID()}"></td>
+                <td th:text="${orderForm.getGoodsID()}"></td>
+                <td th:text="${orderForm.getAmount()}"></td>
+                <td th:text="${orderForm.getOrderFormDate()}"></td>
+                <td th:text="${orderForm.getStatus()}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <a th:href="@{/user/orders}" class="btn btn-outline-dark my-1">返回查询</a>
+        <a th:href="@{/user/index}" class="btn btn-outline-dark my-1">返回首页</a>
     </div>
 </div>
 <!-- about section -->
@@ -57,18 +73,4 @@
 <!-- sidebar -->
 <script th:src="@{/js/jquery.mCustomScrollbar.concat.min.js}"></script>
 </body>
-<script>
-    function checkBalance() {
-        var balance = document.getElementById("balance").value;
-        var spanNode = document.getElementById("balanceSpan");
-        var reg = /^\d+(\.\d+)?$/;
-        if(reg.test(balance)){
-            spanNode.innerHTML = "";
-            return true;
-        }else{
-            spanNode.innerHTML = "非负浮点数".fontcolor("red");
-            return false;
-        }
-    }
-</script>
 </html>

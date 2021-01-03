@@ -14,6 +14,9 @@ public interface OrderFormDao {
     @Select("select * from orderForm where orderFormID=#{orderFormID}")
     List<OrderForm> findOrderFormByID(@Param("orderFormID") String orderFormID);
 
+    @Select("select * from orderForm where orderFormID=#{orderFormID} and cusID=#{cusID}")
+    List<OrderForm> findOrdersByID(@Param("orderFormID") String orderFormID,@Param("cusID") String cusID);
+
     @Insert("insert into orderForm(orderFormID,cusID,goodsID,amount,status,orderFormDate) values(#{orderFormID},#{cusID},#{goodsID},#{amount},'pending',#{orderFormDate})")
     boolean addOrderForm(@Param("orderFormID") String orderFormID,@Param("cusID") String cusID,@Param("goodsID") String goodsID,@Param("amount") int amount,@Param("orderFormDate") Date orderFormDate);
 

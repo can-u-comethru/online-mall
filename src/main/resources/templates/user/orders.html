@@ -37,12 +37,13 @@
 <!-- about section -->
 <div class="about">
     <div class="container">
-        <form class="form-inline" th:action="@{/user/recharge_}" onsubmit="return checkBalance()">
-            <label class="my-1 mr-2" for="balance">您要充值的金额</label>
-            <input type="text" class="form-control" id="balance" name="balance" onblur="checkBalance()">
-            <button type="submit" class="btn btn-outline-dark my-1">充值</button>
+        <p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
+        <form class="form-inline" th:action="@{/user/orders_}" onsubmit="return checkID()">
+            <label class="my-1 mr-2" for="orderFormID">您的订单号</label>
+            <input type="text" class="form-control" id="orderFormID" name="orderFormID" onblur="checkID()">
+            <button type="submit" class="btn btn-outline-dark my-1">查询</button>
         </form>
-        <span  style="font-size:13px" id="balanceSpan"></span>
+        <span  style="font-size:13px" id="orderFormIDSpan"></span>
     </div>
 </div>
 <!-- about section -->
@@ -58,15 +59,15 @@
 <script th:src="@{/js/jquery.mCustomScrollbar.concat.min.js}"></script>
 </body>
 <script>
-    function checkBalance() {
-        var balance = document.getElementById("balance").value;
-        var spanNode = document.getElementById("balanceSpan");
-        var reg = /^\d+(\.\d+)?$/;
-        if(reg.test(balance)){
+    function checkID() {
+        var id = document.getElementById("orderFormID").value;
+        var spanNode = document.getElementById("orderFormIDSpan");
+        var reg = /^\d{4,10}$/;
+        if(reg.test(id)){
             spanNode.innerHTML = "";
             return true;
         }else{
-            spanNode.innerHTML = "非负浮点数".fontcolor("red");
+            spanNode.innerHTML = "4-10位的数字".fontcolor("red");
             return false;
         }
     }

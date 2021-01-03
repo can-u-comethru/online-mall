@@ -21,8 +21,15 @@ public class OrderFormService {
         return orderFormDao.findOrderFormByID(orderFormID);
     }
 
-    public boolean isOrderFormExist(String orderFormID){
-        return orderFormDao.findOrderFormByID(orderFormID) != null;
+    public List<OrderForm> findOrdersByID(String orderFormID,String cusID){
+        return orderFormDao.findOrdersByID(orderFormID,cusID);
+    }
+
+    public boolean isOrderFormExist(String orderFormID,String cusID){
+        if(orderFormDao.findOrdersByID(orderFormID,cusID).isEmpty())
+            return false;
+        else
+            return true;
     }
 
     public boolean addOrderForm(String orderFormID, String cusID, String goodsID, int amount, Date orderFormDate){
