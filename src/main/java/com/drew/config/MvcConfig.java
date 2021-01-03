@@ -1,6 +1,7 @@
 package com.drew.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -19,6 +20,10 @@ public class MvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry){
         registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**").excludePathPatterns("/login.html",
                 "/admin/login","/user/**",
+                "/css/*","/js/**","/img/**","/fonts/**");
+        registry.addInterceptor(new UserHandlerInterceptor()).addPathPatterns("/user/**").excludePathPatterns("/user/login",
+                "/user/register","/user/index","/user/shop","/user/about","/user/glasses",
+                "/user/login_","/user/register_",
                 "/css/*","/js/**","/img/**","/fonts/**");
     }
 }
